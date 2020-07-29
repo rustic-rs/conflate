@@ -1,0 +1,20 @@
+# SPDX-FileCopyrightText: 2020 Robin Krahl <robin.krahl@ireas.org>
+# SPDX-License-Identifier: CC0-1.0
+
+[package]
+name = "merge"
+version = "0.1.0"
+authors = ["Robin Krahl <robin.krahl@ireas.org>"]
+edition = "2018"
+description = "Merge multiple values into one"
+repository = "https://git.sr.ht/~ireas/merge-rs"
+keywords = ["merge", "macros", "derive"]
+categories = ["rust-patterns"]
+license = "Apache-2.0 or MIT"
+exclude = [".builds/*"]
+
+[dependencies]
+merge_derive = { path = "merge_derive", version = "0.1.0" }
+
+[dev-dependencies]
+trybuild = "1.0"

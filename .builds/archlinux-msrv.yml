@@ -1,0 +1,23 @@
+# Copyright (C) 2020 Robin Krahl <robin.krahl@ireas.org>
+# SPDX-License-Identifier: CC0-1.0
+image: archlinux
+packages:
+  - rustup
+sources:
+  - https://git.sr.ht/~ireas/merge-rs
+tasks:
+  - setup: |
+      rustup set profile minimal
+      rustup default 1.34.2
+  - version: |
+      rustc -V
+  - build: |
+      cd merge-rs
+      cargo build --release
+  - test: |
+      cd merge-rs
+      cargo test
+triggers:
+  - action: email
+    condition: failure
+    to: robin.krahl@ireas.org

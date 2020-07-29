@@ -1,0 +1,44 @@
+# Copyright (C) 2020 Robin Krahl <robin.krahl@ireas.org>
+# SPDX-License-Identifier: CC0-1.0
+image: archlinux
+packages:
+  - gnupg
+  - reuse
+  - rustup
+sources:
+  - https://git.sr.ht/~ireas/merge-rs
+tasks:
+  - setup: |
+      rustup set profile minimal
+      rustup default stable
+      rustup component add rustfmt
+      rustup component add clippy
+  - version: |
+      rustc -V
+  - verify: |
+      cd merge-rs
+      curl -s "https://pgp.ireas.org/0x6D533958F070C57C.txt" | gpg --import
+      git verify-commit HEAD
+  - reuse: |
+      cd merge-rs
+      reuse lint
+  - build: |
+      cd merge-rs
+      cargo build --release
+  - test: |
+      cd merge-rs
+      cargo test -- --ignored
+  - clippy: |
+      cd merge-rs
+      cargo clippy -- -D warnings
+      cd merge_derive
+      cargo clippy -- -D warnings
+  - format: |
+      cd merge-rs
+      cargo fmt -- --check
+      cd merge_derive
+      cargo fmt -- --check
+triggers:
+  - action: email
+    condition: failure
+    to: robin.krahl@ireas.org
