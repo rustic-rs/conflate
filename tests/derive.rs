@@ -133,11 +133,11 @@ fn test_two_option_fields() {
 }
 
 #[test]
-fn test_ignore_valid() {
+fn test_skip_valid() {
     #[derive(Debug, Merge, PartialEq)]
     struct S {
         field1: Option<usize>,
-        #[merge(ignore)]
+        #[merge(skip)]
         field2: Option<usize>,
     }
 
@@ -237,11 +237,11 @@ fn test_ignore_valid() {
 }
 
 #[test]
-fn test_ignore_invalid() {
+fn test_skip_invalid() {
     #[derive(Debug, Merge, PartialEq)]
     struct S {
         field1: Option<usize>,
-        #[merge(ignore)]
+        #[merge(skip)]
         field2: usize,
     }
 
@@ -436,9 +436,9 @@ fn test_unnamed_fields() {
 }
 
 #[test]
-fn test_unnamed_fields_ignore() {
+fn test_unnamed_fields_skip() {
     #[derive(Debug, Merge, PartialEq)]
-    struct S(Option<usize>, #[merge(ignore)] Option<usize>);
+    struct S(Option<usize>, #[merge(skip)] Option<usize>);
 
     impl S {
         pub fn new(field1: Option<usize>, field2: Option<usize>) -> S {

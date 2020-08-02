@@ -1,5 +1,0 @@
-error: expected `,`
- --> $DIR/derive-invalid-ignore.rs:8:20
-  |
-8 |     #[merge(ignore = true)]
-  |                    ^

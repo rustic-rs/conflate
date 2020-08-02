@@ -1,5 +1,5 @@
-error: Unexpected attribute: ignored
+error: Unexpected attribute: ignore
  --> $DIR/derive-invalid-attribute.rs:8:13
   |
-8 |     #[merge(ignored)]
-  |             ^^^^^^^
+8 |     #[merge(ignore)]
+  |             ^^^^^^

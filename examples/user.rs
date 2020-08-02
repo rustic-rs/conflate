@@ -5,7 +5,7 @@ use merge::Merge;
 
 #[derive(Merge)]
 struct User {
-    #[merge(ignore)]
+    #[merge(skip)]
     pub name: &'static str,
     pub location: Option<&'static str>,
     #[merge(strategy = Vec::append)]

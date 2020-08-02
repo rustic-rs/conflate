@@ -22,8 +22,8 @@ use merge::Merge;
 
 #[derive(Merge)]
 struct User {
-    // Fields with the ignore attribute are skipped by Merge
-    #[merge(ignore)]
+    // Fields with the skip attribute are skipped by Merge
+    #[merge(skip)]
     pub name: &'static str,
 
     // The Merge implementation for Option replaces its value if it is None

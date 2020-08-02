@@ -16,12 +16,12 @@ struct Field {
 
 #[derive(Default)]
 struct FieldAttrs {
-    ignore: bool,
+    skip: bool,
     strategy: Option<syn::Path>,
 }
 
 enum FieldAttr {
-    Ignore,
+    Skip,
     Strategy(syn::Path),
 }
 
@@ -65,7 +65,7 @@ fn impl_merge_for_struct(name: &syn::Ident, fields: &syn::Fields) -> TokenStream
 fn gen_assignments(fields: &syn::Fields) -> TokenStream {
     let fields = fields.iter().enumerate().map(Field::from);
     let assignments = fields
-        .filter(|f| !f.attrs.ignore)
+        .filter(|f| !f.attrs.skip)
         .map(|f| gen_assignment(&f));
     quote! {
         #( #assignments )*
@@ -103,7 +103,7 @@ impl From<(usize, &syn::Field)> for Field {
 impl FieldAttrs {
     fn apply(&mut self, attr: FieldAttr) {
         match attr {
-            FieldAttr::Ignore => self.ignore = true,
+            FieldAttr::Skip => self.skip = true,
             FieldAttr::Strategy(path) => self.strategy = Some(path),
         }
     }
@@ -131,9 +131,9 @@ impl<'a, I: Iterator<Item = &'a syn::Attribute>> From<I> for FieldAttrs {
 impl syn::parse::Parse for FieldAttr {
     fn parse(input: syn::parse::ParseStream) -> syn::parse::Result<Self> {
         let name: syn::Ident = input.parse()?;
-        if name == "ignore" {
+        if name == "skip" {
             // TODO check remaining stream
-            Ok(FieldAttr::Ignore)
+            Ok(FieldAttr::Skip)
         } else if name == "strategy" {
             let _: Token![=] = input.parse()?;
             let path: syn::Path = input.parse()?;

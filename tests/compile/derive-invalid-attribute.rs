@@ -5,7 +5,7 @@ use merge::Merge;
 
 #[derive(Merge)]
 struct S {
-    #[merge(ignored)]
+    #[merge(ignore)]
     field1: Option<u8>,
 }
 

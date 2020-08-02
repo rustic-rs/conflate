@@ -17,4 +17,9 @@ exclude = [".builds/*"]
 merge_derive = { path = "merge_derive", version = "0.1.0" }
 
 [dev-dependencies]
+toml = "0.5"
 trybuild = "1.0"
+
+[dev-dependencies.serde]
+version = "1.0"
+features = ["derive"]
