@@ -30,12 +30,8 @@ struct User {
     pub location: Option<&'static str>,
 
     // The strategy attribute is used to customize the merge behavior
-    #[merge(strategy = append)]
+    #[merge(strategy = merge::vec::append)]
     pub groups: Vec<&'static str>,
-}
-
-fn append<T>(left: &mut Vec<T>, mut right: Vec<T>) {
-    left.append(&mut right);
 }
 
 let defaults = User {
@@ -59,12 +55,22 @@ The trait can be used to merge configuration from different sources, for
 example environment variables, multiple configuration files and command-line
 arguments.
 
+A merge strategy is a function with the signature `fn merge<T>(left: &mut T,
+right: T)` that merges `right` into `left`.  The `merge` crate provides
+strategies for the most common types, but you can also define your own
+strategies.
+
 ## Features
 
 This crate has the following features:
 
 - `derive` (default):  Enables the derive macro for the `Merge` trait using the
   `merge_derive` crate.
+- `num` (default): Enables the merge strategies in the `num` module that
+  require the `num_traits` crate.
+- `std` (default): Enables the merge strategies in the `vec` module that
+  require the standard library.  If this feature is not set, `merge` is a
+  `no_std` library.
 
 ## Minimum Supported Rust Version
 

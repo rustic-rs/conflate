@@ -8,12 +8,8 @@ struct User {
     #[merge(skip)]
     pub name: &'static str,
     pub location: Option<&'static str>,
-    #[merge(strategy = append)]
+    #[merge(strategy = merge::vec::append)]
     pub groups: Vec<&'static str>,
-}
-
-fn append<T>(left: &mut Vec<T>, mut right: Vec<T>) {
-    left.append(&mut right);
 }
 
 fn main() {

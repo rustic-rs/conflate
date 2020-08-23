@@ -24,6 +24,10 @@ tasks:
       reuse lint
   - build: |
       cd merge-rs
+      cargo build --release --no-default-features
+      cargo build --release --no-default-features --features derive
+      cargo build --release --no-default-features --features num
+      cargo build --release --no-default-features --features std
       cargo build --release
   - test: |
       cd merge-rs
