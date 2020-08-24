@@ -55,6 +55,13 @@ The trait can be used to merge configuration from different sources, for
 example environment variables, multiple configuration files and command-line
 arguments.
 
+## Features
+
+This crate has the following features:
+
+- `derive` (default):  Enables the derive macro for the `Merge` trait using the
+  `merge_derive` crate.
+
 ## Minimum Supported Rust Version
 
 This crate supports Rust 1.36.0 or later.

@@ -1,6 +1,8 @@
 // SPDX-FileCopyrightText: 2020 Robin Krahl <robin.krahl@ireas.org>
 // SPDX-License-Identifier: Apache-2.0 or MIT
 
+#![cfg(feature = "derive")]
+
 use merge::Merge;
 
 fn test<T: std::fmt::Debug + Merge + PartialEq>(expected: T, left: T, right: T) {
