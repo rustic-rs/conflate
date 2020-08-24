@@ -13,10 +13,7 @@ fn test<T: std::fmt::Debug + Merge + PartialEq>(expected: T, mut left: T, right:
 #[test]
 fn test_bool_overwrite_false() {
     #[derive(Debug, Merge, PartialEq)]
-    struct S (
-        #[merge(strategy = merge::bool::overwrite_false)]
-         bool,
-    );
+    struct S(#[merge(strategy = merge::bool::overwrite_false)] bool);
 
     test(S(false), S(false), S(false));
     test(S(true), S(false), S(true));
@@ -27,10 +24,7 @@ fn test_bool_overwrite_false() {
 #[test]
 fn test_bool_overwrite_true() {
     #[derive(Debug, Merge, PartialEq)]
-    struct S (
-        #[merge(strategy = merge::bool::overwrite_true)]
-        bool,
-    );
+    struct S(#[merge(strategy = merge::bool::overwrite_true)] bool);
 
     test(S(false), S(false), S(false));
     test(S(false), S(false), S(true));
@@ -42,10 +36,7 @@ fn test_bool_overwrite_true() {
 #[test]
 fn test_num_saturating_add() {
     #[derive(Debug, Merge, PartialEq)]
-    struct S (
-        #[merge(strategy = merge::num::saturating_add)]
-        u8,
-    );
+    struct S(#[merge(strategy = merge::num::saturating_add)] u8);
 
     test(S(0), S(0), S(0));
     test(S(1), S(0), S(1));
@@ -57,10 +48,7 @@ fn test_num_saturating_add() {
 #[test]
 fn test_num_overwrite_zero() {
     #[derive(Debug, Merge, PartialEq)]
-    struct S (
-        #[merge(strategy = merge::num::overwrite_zero)]
-        u8,
-    );
+    struct S(#[merge(strategy = merge::num::overwrite_zero)] u8);
 
     test(S(0), S(0), S(0));
     test(S(1), S(0), S(1));
@@ -70,10 +58,7 @@ fn test_num_overwrite_zero() {
 #[test]
 fn test_ord_max() {
     #[derive(Debug, Merge, PartialEq)]
-    struct S (
-        #[merge(strategy = merge::ord::max)]
-        u8,
-    );
+    struct S(#[merge(strategy = merge::ord::max)] u8);
 
     test(S(2), S(1), S(2));
     test(S(2), S(2), S(1));
@@ -86,10 +71,7 @@ fn test_ord_max() {
 #[test]
 fn test_ord_min() {
     #[derive(Debug, Merge, PartialEq)]
-    struct S (
-        #[merge(strategy = merge::ord::min)]
-        u8,
-    );
+    struct S(#[merge(strategy = merge::ord::min)] u8);
 
     test(S(1), S(1), S(2));
     test(S(1), S(2), S(1));
@@ -103,10 +85,7 @@ fn test_ord_min() {
 #[test]
 fn test_vec_overwrite_empty() {
     #[derive(Debug, Merge, PartialEq)]
-    struct S (
-        #[merge(strategy = merge::vec::overwrite_empty)]
-        Vec<u8>,
-    );
+    struct S(#[merge(strategy = merge::vec::overwrite_empty)] Vec<u8>);
 
     test(S(vec![]), S(vec![]), S(vec![]));
     test(S(vec![1]), S(vec![]), S(vec![1]));
@@ -118,10 +97,7 @@ fn test_vec_overwrite_empty() {
 #[test]
 fn test_vec_append() {
     #[derive(Debug, Merge, PartialEq)]
-    struct S (
-        #[merge(strategy = merge::vec::append)]
-        Vec<u8>,
-    );
+    struct S(#[merge(strategy = merge::vec::append)] Vec<u8>);
 
     test(S(vec![]), S(vec![]), S(vec![]));
     test(S(vec![1]), S(vec![]), S(vec![1]));
@@ -135,10 +111,7 @@ fn test_vec_append() {
 #[test]
 fn test_vec_prepend() {
     #[derive(Debug, Merge, PartialEq)]
-    struct S (
-        #[merge(strategy = merge::vec::prepend)]
-        Vec<u8>,
-    );
+    struct S(#[merge(strategy = merge::vec::prepend)] Vec<u8>);
 
     test(S(vec![]), S(vec![]), S(vec![]));
     test(S(vec![1]), S(vec![]), S(vec![1]));
