@@ -5,3 +5,4 @@
 /wip
 **/*.rs.bk
 Cargo.lock
+*.swp
