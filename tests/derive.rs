@@ -5,10 +5,8 @@
 
 use merge::Merge;
 
-fn test<T: std::fmt::Debug + Merge + PartialEq>(expected: T, left: T, right: T) {
-    let mut left = left;
-    let mut right = right;
-    left.merge(&mut right);
+fn test<T: std::fmt::Debug + Merge + PartialEq>(expected: T, mut left: T, right: T) {
+    left.merge(right);
     assert_eq!(expected, left);
 }
 
@@ -296,8 +294,8 @@ fn test_strategy_usize_add() {
         }
     }
 
-    fn add(left: &mut usize, right: &mut usize) {
-        *left = *left + *right;
+    fn add(left: &mut usize, right: usize) {
+        *left = *left + right;
     }
 
     test(S::new(0), S::new(0), S::new(0));
@@ -310,7 +308,7 @@ fn test_strategy_usize_add() {
 fn test_strategy_vec_append() {
     #[derive(Debug, Merge, PartialEq)]
     struct S {
-        #[merge(strategy = Vec::append)]
+        #[merge(strategy = append)]
         field1: Vec<usize>,
     }
 
@@ -318,6 +316,10 @@ fn test_strategy_vec_append() {
         pub fn new(field1: Vec<usize>) -> S {
             S { field1 }
         }
+    }
+
+    fn append(left: &mut Vec<usize>, mut right: Vec<usize>) {
+        left.append(&mut right);
     }
 
     test(

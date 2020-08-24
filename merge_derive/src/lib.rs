@@ -37,7 +37,7 @@ fn impl_merge(ast: &syn::DeriveInput) -> TokenStream {
 
     set_dummy(quote! {
         impl ::merge::Merge for #name {
-            fn merge(&mut self, other: &mut Self) {
+            fn merge(&mut self, other: Self) {
                 unimplemented!()
             }
         }
@@ -55,7 +55,7 @@ fn impl_merge_for_struct(name: &syn::Ident, fields: &syn::Fields) -> TokenStream
 
     quote! {
         impl ::merge::Merge for #name {
-            fn merge(&mut self, other: &mut Self) {
+            fn merge(&mut self, other: Self) {
                 #assignments
             }
         }
@@ -77,9 +77,9 @@ fn gen_assignment(field: &Field) -> TokenStream {
 
     let name = &field.name;
     if let Some(strategy) = &field.attrs.strategy {
-        quote_spanned!(strategy.span()=> #strategy(&mut self.#name, &mut other.#name);)
+        quote_spanned!(strategy.span()=> #strategy(&mut self.#name, other.#name);)
     } else {
-        quote_spanned!(field.span=> ::merge::Merge::merge(&mut self.#name, &mut other.#name);)
+        quote_spanned!(field.span=> ::merge::Merge::merge(&mut self.#name, other.#name);)
     }
 }
 

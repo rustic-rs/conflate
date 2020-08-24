@@ -8,12 +8,16 @@ struct User {
     #[merge(skip)]
     pub name: &'static str,
     pub location: Option<&'static str>,
-    #[merge(strategy = Vec::append)]
+    #[merge(strategy = append)]
     pub groups: Vec<&'static str>,
 }
 
+fn append<T>(left: &mut Vec<T>, mut right: Vec<T>) {
+    left.append(&mut right);
+}
+
 fn main() {
-    let mut defaults = User {
+    let defaults = User {
         name: "",
         location: Some("Internet"),
         groups: vec!["rust"],
@@ -23,7 +27,7 @@ fn main() {
         location: None,
         groups: vec!["mascot"],
     };
-    ferris.merge(&mut defaults);
+    ferris.merge(defaults);
 
     assert_eq!("Ferris", ferris.name);
     assert_eq!(Some("Internet"), ferris.location);

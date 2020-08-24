@@ -3,10 +3,8 @@
 
 use merge::Merge;
 
-fn test<T: std::fmt::Debug + Merge + PartialEq>(expected: T, left: T, right: T) {
-    let mut left = left;
-    let mut right = right;
-    left.merge(&mut right);
+fn test<T: std::fmt::Debug + Merge + PartialEq>(expected: T, mut left: T, right: T) {
+    left.merge(right);
     assert_eq!(expected, left);
 }
 

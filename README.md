@@ -10,7 +10,7 @@ values into one:
 
 ```rust
 trait Merge {
-    fn merge(&mut self, other: &mut Self);
+    fn merge(&mut self, other: Self);
 }
 ```
 
@@ -30,11 +30,15 @@ struct User {
     pub location: Option<&'static str>,
 
     // The strategy attribute is used to customize the merge behavior
-    #[merge(strategy = Vec::append)]
+    #[merge(strategy = append)]
     pub groups: Vec<&'static str>,
 }
 
-let mut defaults = User {
+fn append<T>(left: &mut Vec<T>, mut right: Vec<T>) {
+    left.append(&mut right);
+}
+
+let defaults = User {
     name: "",
     location: Some("Internet"),
     groups: vec!["rust"],
@@ -44,7 +48,7 @@ let mut ferris = User {
     location: None,
     groups: vec!["mascot"],
 };
-ferris.merge(&mut defaults);
+ferris.merge(defaults);
 
 assert_eq!("Ferris", ferris.name);
 assert_eq!(Some("Internet"), ferris.location);
