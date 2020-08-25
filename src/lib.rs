@@ -38,7 +38,7 @@ pub mod num {
         *left = left.saturating_add(&right);
     }
 
-    pub fn overwrite_zero<T: Copy + num_traits::Zero>(left: &mut T, right: T) {
+    pub fn overwrite_zero<T: num_traits::Zero>(left: &mut T, right: T) {
         if left.is_zero() {
             *left = right;
         }
@@ -48,13 +48,13 @@ pub mod num {
 pub mod ord {
     use core::cmp;
 
-    pub fn max<T: Copy + cmp::Ord>(left: &mut T, right: T) {
+    pub fn max<T: cmp::Ord>(left: &mut T, right: T) {
         if cmp::Ord::cmp(left, &right) == cmp::Ordering::Less {
             *left = right;
         }
     }
 
-    pub fn min<T: Copy + cmp::Ord>(left: &mut T, right: T) {
+    pub fn min<T: cmp::Ord>(left: &mut T, right: T) {
         if cmp::Ord::cmp(left, &right) == cmp::Ordering::Greater {
             *left = right;
         }
