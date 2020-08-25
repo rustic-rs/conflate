@@ -1,6 +1,13 @@
 // SPDX-FileCopyrightText: 2020 Robin Krahl <robin.krahl@ireas.org>
 // SPDX-License-Identifier: Apache-2.0 or MIT
 
+//! A derive macro for the [`merge::Merge`][] trait.
+//!
+//! See the documentation for the [`merge`][] crate for more information.
+//!
+//! [`merge`]: https://lib.rs/crates/merge
+//! [`merge::Merge`]: https://docs.rs/merge/latest/merge/trait.Merge.html
+
 extern crate proc_macro;
 
 use proc_macro2::TokenStream;
