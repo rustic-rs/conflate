@@ -51,14 +51,14 @@ assert_eq!(Some("Internet"), ferris.location);
 assert_eq!(vec!["mascot", "rust"], ferris.groups);
 ```
 
-The trait can be used to merge configuration from different sources, for
-example environment variables, multiple configuration files and command-line
-arguments.
-
 A merge strategy is a function with the signature `fn merge<T>(left: &mut T,
 right: T)` that merges `right` into `left`.  The `merge` crate provides
 strategies for the most common types, but you can also define your own
 strategies.
+
+The trait can be used to merge configuration from different sources, for
+example environment variables, multiple configuration files and command-line
+arguments, see the `args.rs` example.
 
 ## Features
 
