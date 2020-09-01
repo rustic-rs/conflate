@@ -76,6 +76,12 @@ This crate has the following features:
 
 This crate supports Rust 1.36.0 or later.
 
+## Contact
+
+For bug reports, patches, feature requests and other messages, please send a
+mail to [~ireas/public-inbox@lists.sr.ht][] using the `[merge-rs]` prefix in
+the subject.
+
 ## License
 
 This project is dual-licensed under the [Apache-2.0][] and [MIT][] licenses.
@@ -85,6 +91,7 @@ of the license texts in the `LICENSES` directory.
 
 `merge-rs` complies with [version 3.0 of the REUSE specification][reuse].
 
+[~ireas/public-inbox@lists.sr.ht]: mailto:~ireas/public-inbox@lists.sr.ht
 [Apache-2.0]: https://opensource.org/licenses/Apache-2.0
 [MIT]: https://opensource.org/licenses/MIT
 [CC0]: https://creativecommons.org/publicdomain/zero/1.0/
