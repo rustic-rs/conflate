@@ -20,8 +20,7 @@ struct Args {
 fn get_config() -> Option<Args> {
     let path: &std::path::Path = "args.toml".as_ref();
     if path.is_file() {
-        let s = std::fs::read_to_string(path)
-            .expect("Could not read configuration file");
+        let s = std::fs::read_to_string(path).expect("Could not read configuration file");
         Some(toml::from_str(&s).expect("Could not parse configuration"))
     } else {
         None

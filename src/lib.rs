@@ -20,11 +20,11 @@
 //! `Merge`.  A merge strategy is a function with the signature `fn merge<T>(left: &mut T, right:
 //! T)` that merges `right` into `left`.  The submodules of this crate provide strategies for the
 //! most common types, but you can also define your own strategies.
-//! 
+//!
 //! ## Features
-//! 
+//!
 //! This crate has the following features:
-//! 
+//!
 //! - `derive` (default):  Enables the derive macro for the `Merge` trait using the `merge_derive`
 //!   crate.
 //! - `num` (default): Enables the merge strategies in the `num` module that require the
@@ -33,24 +33,24 @@
 //!   library.  If this feature is not set, `merge` is a `no_std` library.
 //!
 //! # Example
-//! 
+//!
 //! ```
 //! use merge::Merge;
-//! 
+//!
 //! #[derive(Merge)]
 //! struct User {
 //!     // Fields with the skip attribute are skipped by Merge
 //!     #[merge(skip)]
 //!     pub name: &'static str,
-//! 
+//!
 //!     // The Merge implementation for Option replaces its value if it is None
 //!     pub location: Option<&'static str>,
-//! 
+//!
 //!     // The strategy attribute is used to customize the merge behavior
 //!     #[merge(strategy = merge::vec::append)]
 //!     pub groups: Vec<&'static str>,
 //! }
-//! 
+//!
 //! let defaults = User {
 //!     name: "",
 //!     location: Some("Internet"),
@@ -62,7 +62,7 @@
 //!     groups: vec!["mascot"],
 //! };
 //! ferris.merge(defaults);
-//! 
+//!
 //! assert_eq!("Ferris", ferris.name);
 //! assert_eq!(Some("Internet"), ferris.location);
 //! assert_eq!(vec!["mascot", "rust"], ferris.groups);
