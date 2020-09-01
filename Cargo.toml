@@ -10,7 +10,7 @@ description = "Merge multiple values into one"
 repository = "https://git.sr.ht/~ireas/merge-rs"
 keywords = ["merge", "macros", "derive"]
 categories = ["rust-patterns"]
-license = "Apache-2.0 or MIT"
+license = "Apache-2.0 OR MIT"
 exclude = [".builds/*"]
 
 [dependencies]

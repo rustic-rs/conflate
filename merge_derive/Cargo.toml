@@ -11,7 +11,7 @@ repository = "https://git.sr.ht/~ireas/merge-rs/tree/master/merge_derive"
 keywords = ["merge", "macros", "derive"]
 categories = ["rust-patterns"]
 readme = "README.md"
-license = "Apache-2.0 or MIT"
+license = "Apache-2.0 OR MIT"
 
 [lib]
 proc-macro = true
