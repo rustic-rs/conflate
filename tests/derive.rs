@@ -549,3 +549,18 @@ fn test_unnamed_fields_skip() {
     );
     test(S::new(None, None), S::new(None, None), S::new(None, None));
 }
+
+#[test]
+fn test_default_strategy() {
+    #[derive(Debug, Merge, PartialEq)]
+    struct N(#[merge(strategy = merge::num::saturating_add)] u8);
+
+    #[derive(Debug, Merge, PartialEq)]
+    #[merge(strategy = merge::option::overwrite_none)]
+    struct S(
+        Option<usize>,
+        Option<usize>,
+        #[merge(strategy = merge::num::saturating_add)] u8,
+        #[merge(strategy = Merge::merge)] N,
+    );
+}

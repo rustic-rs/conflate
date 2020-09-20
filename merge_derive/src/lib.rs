@@ -41,6 +41,7 @@ pub fn merge_derive(input: proc_macro::TokenStream) -> proc_macro::TokenStream {
 
 fn impl_merge(ast: &syn::DeriveInput) -> TokenStream {
     let name = &ast.ident;
+    let default_strategy = FieldAttrs::from(ast.attrs.iter());
 
     set_dummy(quote! {
         impl ::merge::Merge for #name {
@@ -51,14 +52,14 @@ fn impl_merge(ast: &syn::DeriveInput) -> TokenStream {
     });
 
     if let syn::Data::Struct(syn::DataStruct { ref fields, .. }) = ast.data {
-        impl_merge_for_struct(name, fields)
+        impl_merge_for_struct(name, fields, default_strategy)
     } else {
         abort_call_site!("merge::Merge can only be derived for structs")
     }
 }
 
-fn impl_merge_for_struct(name: &syn::Ident, fields: &syn::Fields) -> TokenStream {
-    let assignments = gen_assignments(fields);
+fn impl_merge_for_struct(name: &syn::Ident, fields: &syn::Fields, default_strategy: FieldAttrs) -> TokenStream {
+    let assignments = gen_assignments(fields, default_strategy);
 
     quote! {
         impl ::merge::Merge for #name {
@@ -69,20 +70,22 @@ fn impl_merge_for_struct(name: &syn::Ident, fields: &syn::Fields) -> TokenStream
     }
 }
 
-fn gen_assignments(fields: &syn::Fields) -> TokenStream {
+fn gen_assignments(fields: &syn::Fields, default_strategy: FieldAttrs) -> TokenStream {
     let fields = fields.iter().enumerate().map(Field::from);
-    let assignments = fields.filter(|f| !f.attrs.skip).map(|f| gen_assignment(&f));
+    let assignments = fields.filter(|f| !f.attrs.skip).map(|f| gen_assignment(&f, &default_strategy));
     quote! {
         #( #assignments )*
     }
 }
 
-fn gen_assignment(field: &Field) -> TokenStream {
+fn gen_assignment(field: &Field, default_strategy: &FieldAttrs) -> TokenStream {
     use syn::spanned::Spanned;
 
     let name = &field.name;
     if let Some(strategy) = &field.attrs.strategy {
         quote_spanned!(strategy.span()=> #strategy(&mut self.#name, other.#name);)
+    } else if let Some(default) = &default_strategy.strategy {
+        quote_spanned!(default.span()=> #default(&mut self.#name, other.#name);)
     } else {
         quote_spanned!(field.span=> ::merge::Merge::merge(&mut self.#name, other.#name);)
     }
