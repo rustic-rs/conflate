@@ -82,6 +82,14 @@ For bug reports, patches, feature requests and other messages, please send a
 mail to [~ireas/public-inbox@lists.sr.ht][] using the `[merge-rs]` prefix in
 the subject.
 
+You can submit patches using
+[`git send-email --to=~ireas/public-inbox@lists.sr.ht`][git-send-email].
+ Please prefix the subject with `PATCH merge-rs` so that CI will be
+automatically run. You can configure git to do this automatically with
+`git config format.subjectPrefix "PATCH merge-rs"`.
+
+[git-send-email]: https://git-send-email.io
+
 ## License
 
 This project is dual-licensed under the [Apache-2.0][] and [MIT][] licenses.
