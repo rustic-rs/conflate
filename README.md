@@ -79,16 +79,15 @@ This crate supports Rust 1.36.0 or later.
 ## Contact
 
 For bug reports, patches, feature requests and other messages, please send a
-mail to [~ireas/public-inbox@lists.sr.ht][] using the `[merge-rs]` prefix in
-the subject.
+mail to [~ireas/public-inbox@lists.sr.ht][] ([archive][]) using the
+`[merge-rs]` prefix in the subject.
 
-You can submit patches using
-[`git send-email --to=~ireas/public-inbox@lists.sr.ht`][git-send-email].
- Please prefix the subject with `PATCH merge-rs` so that CI will be
-automatically run. You can configure git to do this automatically with
-`git config format.subjectPrefix "PATCH merge-rs"`.
-
-[git-send-email]: https://git-send-email.io
+You can submit patches using [`git send-email`][], for example:
+```
+git send-email --to=~ireas/public-inbox@lists.sr.ht --subject-prefix="PATCH merge-rs"
+```
+Please prefix the subject with `PATCH merge-rs` so that CI will be
+automatically run.
 
 ## License
 
@@ -100,6 +99,8 @@ of the license texts in the `LICENSES` directory.
 `merge-rs` complies with [version 3.0 of the REUSE specification][reuse].
 
 [~ireas/public-inbox@lists.sr.ht]: mailto:~ireas/public-inbox@lists.sr.ht
+[`git send-email`]: https://git-send-email.io
+[archive]: https://lists.sr.ht/~ireas/public-inbox
 [Apache-2.0]: https://opensource.org/licenses/Apache-2.0
 [MIT]: https://opensource.org/licenses/MIT
 [CC0]: https://creativecommons.org/publicdomain/zero/1.0/
