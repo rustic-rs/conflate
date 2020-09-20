@@ -15,11 +15,12 @@
 //! use case is merging configuration from different sources, for example environment variables,
 //! multiple configuration files and command-line arguments, see the [`args.rs`][] example.
 //!
-//! `Merge` is implemented for `Option` and can be derived for structs.  When deriving the `Merge`
-//! trait for a struct, you can provide custom merge strategies for the fields that don’t implement
-//! `Merge`.  A merge strategy is a function with the signature `fn merge<T>(left: &mut T, right:
-//! T)` that merges `right` into `left`.  The submodules of this crate provide strategies for the
-//! most common types, but you can also define your own strategies.
+//! This crate does not provide any `Merge` implementations, but `Merge` can be derived for
+//! structs.  When deriving the `Merge` trait for a struct, you can provide custom merge strategies
+//! for the fields that don’t implement `Merge`.  A merge strategy is a function with the signature
+//! `fn merge<T>(left: &mut T, right: T)` that merges `right` into `left`.  The submodules of this
+//! crate provide strategies for the most common types, but you can also define your own
+//! strategies.
 //!
 //! ## Features
 //!
@@ -29,8 +30,8 @@
 //!   crate.
 //! - `num` (default): Enables the merge strategies in the `num` module that require the
 //!   `num_traits` crate.
-//! - `std` (default): Enables the merge strategies in the `vec` module that require the standard
-//!   library.  If this feature is not set, `merge` is a `no_std` library.
+//! - `std` (default): Enables the merge strategies in the `hashmap` and `vec` modules that require
+//!    the standard library.  If this feature is not set, `merge` is a `no_std` library.
 //!
 //! # Example
 //!
@@ -43,11 +44,10 @@
 //!     #[merge(skip)]
 //!     pub name: &'static str,
 //!
-//!     // The Merge implementation for Option replaces its value if it is None
+//!     // The strategy attribute is used to customize the merge behavior
 //!     #[merge(strategy = merge::option::overwrite_none)]
 //!     pub location: Option<&'static str>,
 //!
-//!     // The strategy attribute is used to customize the merge behavior
 //!     #[merge(strategy = merge::vec::append)]
 //!     pub groups: Vec<&'static str>,
 //! }
@@ -88,17 +88,10 @@ pub use merge_derive::*;
 /// - `strategy = f`: Call `f(self.field, other.field)` instead of calling the `merge` function for
 ///    this field.
 ///
+/// You can also set a default strategy for all fields by setting the `strategy` attribute for the
+/// struct.
+///
 /// # Examples
-///
-/// Using the `Merge` implementation for `Option`:
-///
-/// ```
-/// use merge::Merge as _;
-///
-/// let mut val = None;
-/// merge::option::overwrite_none(&mut val, Some(42));
-/// assert_eq!(Some(42), val);
-/// ```
 ///
 /// Deriving `Merge` for a struct:
 ///
@@ -131,6 +124,36 @@ pub use merge_derive::*;
 ///     option: Some(42),
 ///     s: "some ignored value".to_owned(),
 ///     flag: true,
+/// }, val);
+/// ```
+///
+/// Setting a default merge strategy:
+///
+/// ```
+/// use merge::Merge;
+///
+/// #[derive(Debug, PartialEq, Merge)]
+/// #[merge(strategy = merge::option::overwrite_none)]
+/// struct S {
+///     option1: Option<usize>,
+///     option2: Option<usize>,
+///     option3: Option<usize>,
+/// }
+///
+/// let mut val = S {
+///     option1: None,
+///     option2: Some(1),
+///     option3: None,
+/// };
+/// val.merge(S {
+///     option1: Some(2),
+///     option2: Some(2),
+///     option3: None,
+/// });
+/// assert_eq!(S {
+///     option1: Some(2),
+///     option2: Some(1),
+///     option3: None,
 /// }, val);
 /// ```
 pub trait Merge {
@@ -238,7 +261,7 @@ pub mod vec {
     }
 }
 
-/// Merge strategies for hashmaps.
+/// Merge strategies for hash maps.
 ///
 /// These strategies are only available if the `std` feature is enabled.
 #[cfg(feature = "std")]

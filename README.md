@@ -14,7 +14,7 @@ trait Merge {
 }
 ```
 
-`Merge` is implemented for `Option` and can be derived for structs:
+`Merge` can be derived for structs:
 
 <!-- should be kept in sync with examples/user.rs -->
 ```rust
@@ -26,10 +26,10 @@ struct User {
     #[merge(skip)]
     pub name: &'static str,
 
-    // The Merge implementation for Option replaces its value if it is None
+    // The strategy attribute is used to select the merge behavior
+    #[merge(strategy = merge::option::overwrite_none)]
     pub location: Option<&'static str>,
 
-    // The strategy attribute is used to customize the merge behavior
     #[merge(strategy = merge::vec::append)]
     pub groups: Vec<&'static str>,
 }
@@ -68,9 +68,9 @@ This crate has the following features:
   `merge_derive` crate.
 - `num` (default): Enables the merge strategies in the `num` module that
   require the `num_traits` crate.
-- `std` (default): Enables the merge strategies in the `vec` module that
-  require the standard library.  If this feature is not set, `merge` is a
-  `no_std` library.
+- `std` (default): Enables the merge strategies in the `hashmap` and `vec`
+  modules that require the standard library.  If this feature is not set,
+  `merge` is a `no_std` library.
 
 ## Minimum Supported Rust Version
 
