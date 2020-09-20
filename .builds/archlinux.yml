@@ -18,7 +18,7 @@ tasks:
   - verify: |
       cd merge-rs
       curl -s "https://pgp.ireas.org/0x6D533958F070C57C.txt" | gpg --import
-      git verify-commit HEAD
+      git verify-commit HEAD || [ `git config user.email` == "builds@sr.ht" ]
   - reuse: |
       cd merge-rs
       reuse lint
