@@ -12,8 +12,10 @@ struct Args {
     #[merge(strategy = merge::bool::overwrite_false)]
     debug: bool,
 
+    #[merge(strategy = merge::option::overwrite_none)]
     input: Option<String>,
 
+    #[merge(strategy = merge::option::overwrite_none)]
     output: Option<String>,
 }
 

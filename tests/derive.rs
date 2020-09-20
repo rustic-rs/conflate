@@ -14,6 +14,7 @@ fn test<T: std::fmt::Debug + Merge + PartialEq>(expected: T, mut left: T, right:
 fn test_one_option_field() {
     #[derive(Debug, Merge, PartialEq)]
     struct S {
+        #[merge(strategy = merge::option::overwrite_none)]
         field1: Option<usize>,
     }
 
@@ -33,7 +34,9 @@ fn test_one_option_field() {
 fn test_two_option_fields() {
     #[derive(Debug, Merge, PartialEq)]
     struct S {
+        #[merge(strategy = merge::option::overwrite_none)]
         field1: Option<usize>,
+        #[merge(strategy = merge::option::overwrite_none)]
         field2: Option<usize>,
     }
 
@@ -136,6 +139,7 @@ fn test_two_option_fields() {
 fn test_skip_valid() {
     #[derive(Debug, Merge, PartialEq)]
     struct S {
+        #[merge(strategy = merge::option::overwrite_none)]
         field1: Option<usize>,
         #[merge(skip)]
         field2: Option<usize>,
@@ -240,6 +244,7 @@ fn test_skip_valid() {
 fn test_skip_invalid() {
     #[derive(Debug, Merge, PartialEq)]
     struct S {
+        #[merge(strategy = merge::option::overwrite_none)]
         field1: Option<usize>,
         #[merge(skip)]
         field2: usize,
@@ -342,7 +347,10 @@ fn test_strategy_vec_append() {
 #[test]
 fn test_unnamed_fields() {
     #[derive(Debug, Merge, PartialEq)]
-    struct S(Option<usize>, Option<usize>);
+    struct S(
+        #[merge(strategy = merge::option::overwrite_none)] Option<usize>,
+        #[merge(strategy = merge::option::overwrite_none)] Option<usize>,
+    );
 
     impl S {
         pub fn new(field1: Option<usize>, field2: Option<usize>) -> S {
@@ -442,7 +450,10 @@ fn test_unnamed_fields() {
 #[test]
 fn test_unnamed_fields_skip() {
     #[derive(Debug, Merge, PartialEq)]
-    struct S(Option<usize>, #[merge(skip)] Option<usize>);
+    struct S(
+        #[merge(strategy = merge::option::overwrite_none)] Option<usize>,
+        #[merge(skip)] Option<usize>,
+    );
 
     impl S {
         pub fn new(field1: Option<usize>, field2: Option<usize>) -> S {

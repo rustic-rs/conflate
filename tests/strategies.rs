@@ -11,6 +11,30 @@ fn test<T: std::fmt::Debug + Merge + PartialEq>(expected: T, mut left: T, right:
 }
 
 #[test]
+fn test_option_overwrite_none() {
+    #[derive(Debug, Merge, PartialEq)]
+    struct S(#[merge(strategy = merge::option::overwrite_none)] Option<u8>);
+
+    test(S(Some(1)), S(Some(1)), S(Some(2)));
+    test(S(Some(2)), S(None), S(Some(2)));
+    test(S(None), S(None), S(None));
+}
+
+#[test]
+fn test_option_recursive() {
+    #[derive(Debug, Merge, PartialEq)]
+    struct N(#[merge(strategy = merge::num::saturating_add)] u8);
+
+    #[derive(Debug, Merge, PartialEq)]
+    struct S(#[merge(strategy = merge::option::recurse)] Option<N>);
+
+    test(S(Some(N(3))), S(Some(N(1))), S(Some(N(2))));
+    test(S(Some(N(1))), S(Some(N(1))), S(None));
+    test(S(Some(N(1))), S(None), S(Some(N(1))));
+    test(S(None), S(None), S(None));
+}
+
+#[test]
 fn test_bool_overwrite_false() {
     #[derive(Debug, Merge, PartialEq)]
     struct S(#[merge(strategy = merge::bool::overwrite_false)] bool);

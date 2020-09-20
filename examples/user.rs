@@ -7,6 +7,7 @@ use merge::Merge;
 struct User {
     #[merge(skip)]
     pub name: &'static str,
+    #[merge(strategy = merge::option::overwrite_none)]
     pub location: Option<&'static str>,
     #[merge(strategy = merge::vec::append)]
     pub groups: Vec<&'static str>,

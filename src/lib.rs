@@ -44,6 +44,7 @@
 //!     pub name: &'static str,
 //!
 //!     // The Merge implementation for Option replaces its value if it is None
+//!     #[merge(strategy = merge::option::overwrite_none)]
 //!     pub location: Option<&'static str>,
 //!
 //!     // The strategy attribute is used to customize the merge behavior
@@ -95,7 +96,7 @@ pub use merge_derive::*;
 /// use merge::Merge as _;
 ///
 /// let mut val = None;
-/// val.merge(Some(42));
+/// merge::option::overwrite_none(&mut val, Some(42));
 /// assert_eq!(Some(42), val);
 /// ```
 ///
@@ -106,6 +107,7 @@ pub use merge_derive::*;
 ///
 /// #[derive(Debug, PartialEq, Merge)]
 /// struct S {
+///     #[merge(strategy = merge::option::overwrite_none)]
 ///     option: Option<usize>,
 ///
 ///     #[merge(skip)]
@@ -136,10 +138,24 @@ pub trait Merge {
     fn merge(&mut self, other: Self);
 }
 
-impl<T> Merge for Option<T> {
-    fn merge(&mut self, mut other: Self) {
-        if !self.is_some() {
-            *self = other.take();
+/// Merge strategies for `Option`
+pub mod option {
+    /// Overwrite `left` with `right` only if `left` is `None`.
+    pub fn overwrite_none<T>(left: &mut Option<T>, right: Option<T>) {
+        if left.is_none() {
+            *left = right;
+        }
+    }
+
+    /// If both `left` and `right` are `Some`, recursively merge the two.
+    /// Otherwise, fall back to `overwrite_none`.
+    pub fn recurse<T: crate::Merge>(left: &mut Option<T>, right: Option<T>) {
+        if let Some(new) = right {
+            if let Some(original) = left {
+                original.merge(new);
+            } else {
+                *left = Some(new);
+            }
         }
     }
 }
