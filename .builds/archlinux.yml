@@ -35,12 +35,8 @@ tasks:
   - clippy: |
       cd merge-rs
       cargo clippy -- -D warnings
-      cd merge_derive
-      cargo clippy -- -D warnings
   - format: |
       cd merge-rs
-      cargo fmt -- --check
-      cd merge_derive
       cargo fmt -- --check
 triggers:
   - action: email

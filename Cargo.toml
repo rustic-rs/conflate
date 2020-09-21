@@ -35,3 +35,6 @@ default = ["derive", "num", "std"]
 derive = ["merge_derive"]
 num = ["num-traits"]
 std = []
+
+[workspace]
+members = ["merge_derive"]
