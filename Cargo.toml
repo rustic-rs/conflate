@@ -7,11 +7,14 @@ version = "0.1.0"
 authors = ["Robin Krahl <robin.krahl@ireas.org>"]
 edition = "2018"
 description = "Merge multiple values into one"
+homepage = "https://sr.ht/~ireas/merge-rs"
 repository = "https://git.sr.ht/~ireas/merge-rs"
+documentation = "https://docs.rs/merge"
 keywords = ["merge", "macros", "derive"]
 categories = ["rust-patterns"]
 license = "Apache-2.0 OR MIT"
 exclude = [".builds/*"]
+readme = "README.md"
 
 [dependencies]
 merge_derive = { path = "merge_derive", version = "0.1.0", optional = true }
