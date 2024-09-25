@@ -17,22 +17,19 @@ repository = "https://github.com/rustic-rs/merge"
 rust-version = { workspace = true }
 description = "Merge multiple values into one"
 
-[dependencies]
-merge_derive = { workspace = true, optional = true }
-num-traits = { version = "0.2.12", optional = true }
-
-[dev-dependencies]
-envy = "0.4"
-structopt = "0.3"
-toml = "0.5"
-trybuild = "1.0"
-
-[dev-dependencies.serde]
-version = "1.0"
-features = ["derive"]
-
 [features]
 default = ["derive", "num", "std"]
 derive = ["merge_derive"]
 num = ["num-traits"]
 std = []
+
+[dependencies]
+merge_derive = { workspace = true, optional = true }
+num-traits = { version = "0.2.18", optional = true }
+
+[dev-dependencies]
+envy = "0.4"
+serde = { version = "1.0", features = ["derive"] }
+structopt = "0.3"
+toml = "0.5"
+trybuild = "1.0"
