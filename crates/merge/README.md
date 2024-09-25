@@ -6,7 +6,22 @@ SPDX-License-Identifier: CC0-1.0
 # merge
 
 The `merge` crate provides the `Merge` trait that can be used to merge multiple
-values into one:
+values into one.
+
+
+## Contact
+
+You can ask questions in the
+[Discussions](https://github.com/rustic-rs/rustic/discussions) or have a look at
+the [FAQ](https://rustic.cli.rs/docs/FAQ.html).
+
+| Contact       | Where?                                                                                                          |
+| ------------- | --------------------------------------------------------------------------------------------------------------- |
+| Issue Tracker | [GitHub Issues](https://github.com/rustic-rs/merge/issues/choose)                                         |
+| Discord       | [![Discord](https://dcbadge.vercel.app/api/server/WRUWENZnzQ?style=flat-square)](https://discord.gg/WRUWENZnzQ) |
+| Discussions   | [GitHub Discussions](https://github.com/rustic-rs/rustic/discussions)                                           |
+
+## Usage
 
 ```rust
 trait Merge {
@@ -85,21 +100,6 @@ version of Rust.
 
 In general, this crate will be conservative with respect to the minimum
 supported version of Rust.
-
-## Contact
-
-For bug reports, patches, feature requests and other messages, please send a
-mail to [~ireas/public-inbox@lists.sr.ht][~ireas/public-inbox@lists.sr.ht]
-([archive][archive]) using the `[merge-rs]` prefix in the subject.
-
-You can submit patches using [`git send-email`][`git send-email`], for example:
-
-```
-git send-email --to=~ireas/public-inbox@lists.sr.ht --subject-prefix="PATCH merge-rs"
-```
-
-Please prefix the subject with `PATCH merge-rs` so that CI will be automatically
-run.
 
 ## License
 
