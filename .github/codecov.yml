@@ -13,8 +13,6 @@ coverage:
 
 ignore:
   - "tests" # Test files aren't important for coverage
-  - "crates/testing" # Testing crate contains Test helpers which aren't important for coverage
-  - "crates/cli" # CLI crate contains prompts to the user, which we currently deem not important for coverage
 
 # Make comments less noisy
 comment:

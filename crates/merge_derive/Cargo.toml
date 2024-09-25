@@ -4,13 +4,16 @@
 [package]
 name = "merge_derive"
 version = "0.1.0"
-authors = ["Robin Krahl <robin.krahl@ireas.org>"]
+authors = ["Robin Krahl <robin.krahl@ireas.org>", "the rustic-rs team"]
 categories = ["rust-patterns"]
-edition = "2018"
+documentation = "https://docs.rs/merge_derive"
+edition = "2021"
+homepage = "https://github.com/rustic-rs/merge"
 keywords = ["merge", "macros", "derive"]
 license = "Apache-2.0 OR MIT"
 readme = "README.md"
-repository = "https://git.sr.ht/~ireas/merge-rs/tree/master/merge_derive"
+repository = "https://github.com/rustic-rs/merge/tree/main/crates/merge_derive"
+rust-version = { workspace = true }
 description = "Derive macro for the merge::Merge trait"
 
 [lib]
@@ -20,4 +23,4 @@ proc-macro = true
 proc-macro-error2 = "2.0.1"
 proc-macro2 = "1.0"
 quote = "1.0"
-syn = "1.0"
+syn = "2.0.77"

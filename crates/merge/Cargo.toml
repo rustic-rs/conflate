@@ -1,0 +1,38 @@
+# SPDX-FileCopyrightText: 2020 Robin Krahl <robin.krahl@ireas.org>
+# SPDX-License-Identifier: CC0-1.0
+
+[package]
+name = "merge"
+version = "0.1.0"
+authors = ["Robin Krahl <robin.krahl@ireas.org>", "the rustic-rs team"]
+categories = ["rust-patterns"]
+documentation = "https://docs.rs/merge"
+edition = "2021"
+exclude = [".builds/*"]
+homepage = "https://github.com/rustic-rs/merge"
+keywords = ["merge", "macros", "derive"]
+license = "Apache-2.0 OR MIT"
+readme = "README.md"
+repository = "https://github.com/rustic-rs/merge"
+rust-version = { workspace = true }
+description = "Merge multiple values into one"
+
+[dependencies]
+merge_derive = { workspace = true, optional = true }
+num-traits = { version = "0.2.12", optional = true }
+
+[dev-dependencies]
+envy = "0.4"
+structopt = "0.3"
+toml = "0.5"
+trybuild = "1.0"
+
+[dev-dependencies.serde]
+version = "1.0"
+features = ["derive"]
+
+[features]
+default = ["derive", "num", "std"]
+derive = ["merge_derive"]
+num = ["num-traits"]
+std = []

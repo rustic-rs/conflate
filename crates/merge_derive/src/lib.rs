@@ -11,7 +11,7 @@
 extern crate proc_macro;
 
 use proc_macro2::TokenStream;
-use proc_macro_error::{abort, abort_call_site, dummy::set_dummy, proc_macro_error, ResultExt};
+use proc_macro_error2::{abort, abort_call_site, dummy::set_dummy, proc_macro_error, ResultExt};
 use quote::{quote, quote_spanned};
 use syn::Token;
 
@@ -128,7 +128,7 @@ impl<'a, I: Iterator<Item = &'a syn::Attribute>> From<I> for FieldAttrs {
         let mut field_attrs = Self::default();
 
         for attr in iter {
-            if !attr.path.is_ident("merge") {
+            if !attr.path().is_ident("merge") {
                 continue;
             }
 
