@@ -75,7 +75,7 @@ This crate has the following features:
 
 ## Minimum Supported Rust Version
 
-This crate supports Rust 1.36.0 or later.
+This crate supports Rust 1.64.0 or later.
 
 ## Contact
 
