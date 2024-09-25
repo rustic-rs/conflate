@@ -133,7 +133,7 @@ jobs:
     strategy:
       matrix:
         rust: [stable, beta, nightly]
-        crate: [rustic_core, rustic_backend] # if we use a workspace, we also check all examples/*
+        crate: [merge, merge_derive] # if we use a workspace, we also check all examples/*
         job:
           - os: macos-latest
           - os: ubuntu-latest
