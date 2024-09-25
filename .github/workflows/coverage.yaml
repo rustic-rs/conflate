@@ -1,0 +1,39 @@
+name: Test Coverage
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
+  cancel-in-progress: true
+
+on:
+  push:
+    paths:
+      - '**.rs'
+      - '**.snap'
+      - '**.yml'
+jobs:
+  test:
+    name: Generate Coverage Report
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4
+
+      - name: Install cargo-hack
+        uses: taiki-e/install-action@7348990d6a11d92f3e482c9b1bb48cf31ab7f658 # v2
+        with:
+          tool: cargo-tarpaulin
+
+      # We run the coverage report on the workspace, but we configured in codecov to only look at parts of the workspace essentially
+      # 
+      # This is because we have a workspace with multiple crates, and we want to generate coverage for all of them, but we only want to
+      # report the coverage of rustic_backend and rustic_core crates (currently) as this is where the main logic is
+      - name: Generate code coverage
+        run: |
+          cargo tarpaulin --verbose --all-features --workspace --timeout 120 --out xml
+      
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@e28ff129e5465c2c0dcc6f003fc735cb6ae0c673 # v4
+        with:
+            token: ${{ secrets.CODECOV_TOKEN }}
+            slug: rustic-rs/merge
