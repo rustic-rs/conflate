@@ -31,5 +31,5 @@ num-traits = { version = "0.2.18", optional = true }
 envy = "0.4"
 serde = { version = "1.0", features = ["derive"] }
 structopt = "0.3"
-toml = "0.5"
+toml = "0.8"
 trybuild = "1.0"
