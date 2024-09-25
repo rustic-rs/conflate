@@ -16,7 +16,7 @@ the [FAQ](https://rustic.cli.rs/docs/FAQ.html).
 
 | Contact       | Where?                                                                                                          |
 | ------------- | --------------------------------------------------------------------------------------------------------------- |
-| Issue Tracker | [GitHub Issues](https://github.com/rustic-rs/merge/issues/choose)                                         |
+| Issue Tracker | [GitHub Issues](https://github.com/rustic-rs/merge/issues/choose)                                               |
 | Discord       | [![Discord](https://dcbadge.vercel.app/api/server/WRUWENZnzQ?style=flat-square)](https://discord.gg/WRUWENZnzQ) |
 | Discussions   | [GitHub Discussions](https://github.com/rustic-rs/rustic/discussions)                                           |
 
