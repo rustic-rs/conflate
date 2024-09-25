@@ -9,7 +9,7 @@ members = [
 resolver = "2"
 
 [workspace.package]
-rust-version = "1.76.0"
+rust-version = "1.36.0"
 
 [workspace.dependencies]
 merge_derive = { path = "crates/merge_derive", version = "0.1.0" }
