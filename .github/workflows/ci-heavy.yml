@@ -234,7 +234,7 @@ jobs:
           toolchain: ${{ matrix.rust }}
           target: ${{ matrix.job.target }}
           use-cross: ${{ matrix.job.use-cross }}
-          project-cache-key: "rustic_core"
+          project-cache-key: "merge"
 
   msrv:
     # Only run if the commit doesn't come from a merged PR, we assume CI is running in the PR as well
@@ -244,7 +244,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        crate: [rustic_core, rustic_backend]
+        crate: [merge, merge_derive]
     steps:
       - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4
       - name: Install cargo-hack
