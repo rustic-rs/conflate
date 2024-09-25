@@ -3,7 +3,7 @@ Copyright (C) 2020 Robin Krahl <robin.krahl@ireas.org>
 SPDX-License-Identifier: CC0-1.0
 -->
 
-# merge-rs
+# merge
 
 The `merge` crate provides the `Merge` trait that can be used to merge multiple
 values into one:
