@@ -47,5 +47,5 @@ fn main() {
     if let Some(config) = get_config() {
         args.merge(config);
     }
-    println!("{:?}", args);
+    println!("{args:?}");
 }
