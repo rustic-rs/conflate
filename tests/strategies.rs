@@ -3,7 +3,7 @@
 
 #![cfg(feature = "derive")]
 
-use merge::Merge;
+use conflate::Merge;
 
 fn test<T: std::fmt::Debug + Merge + PartialEq>(expected: T, mut left: T, right: T) {
     left.merge(right);
@@ -13,7 +13,7 @@ fn test<T: std::fmt::Debug + Merge + PartialEq>(expected: T, mut left: T, right:
 #[test]
 fn test_option_overwrite_none() {
     #[derive(Debug, Merge, PartialEq)]
-    struct S(#[merge(strategy = merge::option::overwrite_none)] Option<u8>);
+    struct S(#[merge(strategy = conflate::option::overwrite_none)] Option<u8>);
 
     test(S(Some(1)), S(Some(1)), S(Some(2)));
     test(S(Some(2)), S(None), S(Some(2)));
@@ -23,10 +23,10 @@ fn test_option_overwrite_none() {
 #[test]
 fn test_option_recursive() {
     #[derive(Debug, Merge, PartialEq)]
-    struct N(#[merge(strategy = merge::num::saturating_add)] u8);
+    struct N(#[merge(strategy = conflate::num::saturating_add)] u8);
 
     #[derive(Debug, Merge, PartialEq)]
-    struct S(#[merge(strategy = merge::option::recurse)] Option<N>);
+    struct S(#[merge(strategy = conflate::option::recurse)] Option<N>);
 
     test(S(Some(N(3))), S(Some(N(1))), S(Some(N(2))));
     test(S(Some(N(1))), S(Some(N(1))), S(None));
@@ -37,7 +37,7 @@ fn test_option_recursive() {
 #[test]
 fn test_bool_overwrite_false() {
     #[derive(Debug, Merge, PartialEq)]
-    struct S(#[merge(strategy = merge::bool::overwrite_false)] bool);
+    struct S(#[merge(strategy = conflate::bool::overwrite_false)] bool);
 
     test(S(false), S(false), S(false));
     test(S(true), S(false), S(true));
@@ -48,7 +48,7 @@ fn test_bool_overwrite_false() {
 #[test]
 fn test_bool_overwrite_true() {
     #[derive(Debug, Merge, PartialEq)]
-    struct S(#[merge(strategy = merge::bool::overwrite_true)] bool);
+    struct S(#[merge(strategy = conflate::bool::overwrite_true)] bool);
 
     test(S(false), S(false), S(false));
     test(S(false), S(false), S(true));
@@ -60,7 +60,7 @@ fn test_bool_overwrite_true() {
 #[test]
 fn test_num_saturating_add() {
     #[derive(Debug, Merge, PartialEq)]
-    struct S(#[merge(strategy = merge::num::saturating_add)] u8);
+    struct S(#[merge(strategy = conflate::num::saturating_add)] u8);
 
     test(S(0), S(0), S(0));
     test(S(1), S(0), S(1));
@@ -72,7 +72,7 @@ fn test_num_saturating_add() {
 #[test]
 fn test_num_overwrite_zero() {
     #[derive(Debug, Merge, PartialEq)]
-    struct S(#[merge(strategy = merge::num::overwrite_zero)] u8);
+    struct S(#[merge(strategy = conflate::num::overwrite_zero)] u8);
 
     test(S(0), S(0), S(0));
     test(S(1), S(0), S(1));
@@ -82,7 +82,7 @@ fn test_num_overwrite_zero() {
 #[test]
 fn test_ord_max() {
     #[derive(Debug, Merge, PartialEq)]
-    struct S(#[merge(strategy = merge::ord::max)] u8);
+    struct S(#[merge(strategy = conflate::ord::max)] u8);
 
     test(S(2), S(1), S(2));
     test(S(2), S(2), S(1));
@@ -95,7 +95,7 @@ fn test_ord_max() {
 #[test]
 fn test_ord_min() {
     #[derive(Debug, Merge, PartialEq)]
-    struct S(#[merge(strategy = merge::ord::min)] u8);
+    struct S(#[merge(strategy = conflate::ord::min)] u8);
 
     test(S(1), S(1), S(2));
     test(S(1), S(2), S(1));
@@ -109,7 +109,7 @@ fn test_ord_min() {
 #[test]
 fn test_vec_overwrite_empty() {
     #[derive(Debug, Merge, PartialEq)]
-    struct S(#[merge(strategy = merge::vec::overwrite_empty)] Vec<u8>);
+    struct S(#[merge(strategy = conflate::vec::overwrite_empty)] Vec<u8>);
 
     test(S(vec![]), S(vec![]), S(vec![]));
     test(S(vec![1]), S(vec![]), S(vec![1]));
@@ -121,7 +121,7 @@ fn test_vec_overwrite_empty() {
 #[test]
 fn test_vec_append() {
     #[derive(Debug, Merge, PartialEq)]
-    struct S(#[merge(strategy = merge::vec::append)] Vec<u8>);
+    struct S(#[merge(strategy = conflate::vec::append)] Vec<u8>);
 
     test(S(vec![]), S(vec![]), S(vec![]));
     test(S(vec![1]), S(vec![]), S(vec![1]));
@@ -135,7 +135,7 @@ fn test_vec_append() {
 #[test]
 fn test_vec_prepend() {
     #[derive(Debug, Merge, PartialEq)]
-    struct S(#[merge(strategy = merge::vec::prepend)] Vec<u8>);
+    struct S(#[merge(strategy = conflate::vec::prepend)] Vec<u8>);
 
     test(S(vec![]), S(vec![]), S(vec![]));
     test(S(vec![1]), S(vec![]), S(vec![1]));
@@ -172,7 +172,7 @@ mod hashmap {
     #[test]
     fn test_overwrite() {
         #[derive(Debug, Merge, PartialEq)]
-        struct S(#[merge(strategy = merge::hashmap::overwrite)] HashMap<u8, u8>);
+        struct S(#[merge(strategy = conflate::hashmap::overwrite)] HashMap<u8, u8>);
 
         test(S(map! {1 => 2}), S(map! {1 => 1}), S(map! {1 => 2}));
         test(S(map! {1 => 1}), S(map! {1 => 2}), S(map! {1 => 1}));
@@ -182,7 +182,7 @@ mod hashmap {
     #[test]
     fn test_ignore() {
         #[derive(Debug, Merge, PartialEq)]
-        struct S(#[merge(strategy = merge::hashmap::ignore)] HashMap<u8, u8>);
+        struct S(#[merge(strategy = conflate::hashmap::ignore)] HashMap<u8, u8>);
 
         test(S(map! {1 => 1}), S(map! {1 => 1}), S(map! {1 => 2}));
         test(S(map! {1 => 2}), S(map! {1 => 2}), S(map! {1 => 1}));
@@ -192,10 +192,10 @@ mod hashmap {
     #[test]
     fn test_recurse() {
         #[derive(Debug, Merge, PartialEq)]
-        struct N(#[merge(strategy = merge::num::saturating_add)] u8);
+        struct N(#[merge(strategy = conflate::num::saturating_add)] u8);
 
         #[derive(Debug, Merge, PartialEq)]
-        struct S(#[merge(strategy = merge::hashmap::recurse)] HashMap<u8, N>);
+        struct S(#[merge(strategy = conflate::hashmap::recurse)] HashMap<u8, N>);
 
         test(
             S(map! {1 => N(3)}),

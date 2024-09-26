@@ -133,7 +133,7 @@ jobs:
     strategy:
       matrix:
         rust: [stable, beta, nightly]
-        crate: [merge, merge_derive] # if we use a workspace, we also check all examples/*
+        crate: [conflate, conflate_derive] # if we use a workspace, we also check all examples/*
         job:
           - os: macos-latest
           - os: ubuntu-latest
@@ -234,7 +234,7 @@ jobs:
           toolchain: ${{ matrix.rust }}
           target: ${{ matrix.job.target }}
           use-cross: ${{ matrix.job.use-cross }}
-          project-cache-key: "merge"
+          project-cache-key: "conflate"
 
   msrv:
     # Only run if the commit doesn't come from a merged PR, we assume CI is running in the PR as well
@@ -244,7 +244,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        crate: [merge, merge_derive]
+        crate: [conflate, conflate_derive]
     steps:
       - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4
       - name: Install cargo-hack

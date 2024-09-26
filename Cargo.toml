@@ -3,8 +3,9 @@
 
 [workspace]
 members = [
-  "crates/merge",
-  "crates/merge_derive",
+  "crates/conflate",
+  "crates/conflate_derive",
+  "examples/*",
 ]
 resolver = "2"
 
@@ -12,7 +13,8 @@ resolver = "2"
 rust-version = "1.64.0"
 
 [workspace.dependencies]
-merge_derive = { path = "crates/merge_derive", version = "0.1.0" }
+conflate = { path = "crates/conflate", version = "0.2.0" }
+conflate_derive = { path = "crates/conflate_derive", version = "0.2.0" }
 
 # see: https://nnethercote.github.io/perf-book/build-configuration.html
 [profile.dev]
@@ -63,7 +65,7 @@ trivial_casts = "warn"
 unused_lifetimes = "warn"
 unused_qualifications = "warn"
 bad_style = "warn"
-dead_code = "allow" # TODO: "warn"
+dead_code = "warn"
 improper_ctypes = "warn"
 missing_copy_implementations = "warn"
 missing_debug_implementations = "warn"

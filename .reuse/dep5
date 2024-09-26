@@ -1,7 +1,7 @@
 Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
-Upstream-Name: merge-rs
-Upstream-Contact: Robin Krahl <robin.krahl@ireas.org>
-Source: https://git.sr.ht/~ireas/merge-rs
+Upstream-Name: conflate
+Upstream-Contact: rustic-rs team <
+Source: https://github.com/rustic-rs/conflate
 
 Files: tests/compile/*.stderr
 Copyright: 2020 Robin Krahl <robin.krahl@ireas.org>

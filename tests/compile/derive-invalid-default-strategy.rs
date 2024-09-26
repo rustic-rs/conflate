@@ -1,7 +1,7 @@
 // SPDX-FileCopyrightText: 2020 Robin Krahl <robin.krahl@ireas.org>
 // SPDX-License-Identifier: Apache-2.0 or MIT
 
-use merge::Merge;
+use conflate::Merge;
 
 #[derive(Merge)]
 #[merge(strategy = my_custom_merge_strategy)]
@@ -14,4 +14,3 @@ fn my_custom_merge_strategy(left: &mut u8, right: u8) {
 }
 
 fn main() {}
-

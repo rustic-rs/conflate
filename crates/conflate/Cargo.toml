@@ -1,0 +1,31 @@
+# SPDX-FileCopyrightText: 2020 Robin Krahl <robin.krahl@ireas.org>
+# SPDX-License-Identifier: CC0-1.0
+
+[package]
+name = "conflate"
+version = "0.2.0"
+authors = ["the rustic-rs team", "Robin Krahl <robin.krahl@ireas.org>"]
+categories = ["rust-patterns"]
+documentation = "https://docs.rs/conflate"
+edition = "2021"
+exclude = [".builds/*"]
+homepage = "https://github.com/rustic-rs/conflate"
+keywords = ["merge", "macros", "derive", "conflate"]
+license = "Apache-2.0 OR MIT"
+readme = "README.md"
+repository = "https://github.com/rustic-rs/conflate"
+rust-version = { workspace = true }
+description = "Merge multiple values into one"
+
+[features]
+default = ["derive", "num", "std"]
+derive = ["dep:conflate_derive"]
+num = ["dep:num-traits"]
+std = []
+
+[dependencies]
+conflate_derive = { workspace = true, optional = true }
+num-traits = { version = "0.2", optional = true }
+
+[dev-dependencies]
+trybuild = "1.0"

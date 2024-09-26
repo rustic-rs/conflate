@@ -3,10 +3,10 @@ Copyright (C) 2020 Robin Krahl <robin.krahl@ireas.org>
 SPDX-License-Identifier: CC0-1.0
 -->
 
-# merge
+# conflate
 
-The `merge` crate provides the `Merge` trait that can be used to merge multiple
-values into one.
+The `conflate` crate provides the `Merge` trait that can be used to merge
+multiple values into one.
 
 ## Contact
 
@@ -16,7 +16,7 @@ the [FAQ](https://rustic.cli.rs/docs/FAQ.html).
 
 | Contact       | Where?                                                                                                          |
 | ------------- | --------------------------------------------------------------------------------------------------------------- |
-| Issue Tracker | [GitHub Issues](https://github.com/rustic-rs/merge/issues/choose)                                               |
+| Issue Tracker | [GitHub Issues](https://github.com/rustic-rs/conflate/issues/choose)                                            |
 | Discord       | [![Discord](https://dcbadge.vercel.app/api/server/WRUWENZnzQ?style=flat-square)](https://discord.gg/WRUWENZnzQ) |
 | Discussions   | [GitHub Discussions](https://github.com/rustic-rs/rustic/discussions)                                           |
 
@@ -30,10 +30,10 @@ trait Merge {
 
 `Merge` can be derived for structs:
 
-<!-- should be kept in sync with examples/user.rs -->
+<!-- should be kept in sync with examples/user -->
 
 ```rust
-use merge::Merge;
+use conflate::Merge;
 
 #[derive(Merge)]
 struct User {
@@ -42,28 +42,30 @@ struct User {
     pub name: &'static str,
 
     // The strategy attribute is used to select the merge behavior
-    #[merge(strategy = merge::option::overwrite_none)]
+    #[merge(strategy = conflate::option::overwrite_none)]
     pub location: Option<&'static str>,
 
-    #[merge(strategy = merge::vec::append)]
+    #[merge(strategy = conflate::vec::append)]
     pub groups: Vec<&'static str>,
 }
 
-let defaults = User {
-    name: "",
-    location: Some("Internet"),
-    groups: vec!["rust"],
-};
-let mut ferris = User {
-    name: "Ferris",
-    location: None,
-    groups: vec!["mascot"],
-};
-ferris.merge(defaults);
+fn main() {
+    let defaults = User {
+        name: "",
+        location: Some("Internet"),
+        groups: vec!["rust"],
+    };
+    let mut ferris = User {
+        name: "Ferris",
+        location: None,
+        groups: vec!["mascot"],
+    };
+    ferris.merge(defaults);
 
-assert_eq!("Ferris", ferris.name);
-assert_eq!(Some("Internet"), ferris.location);
-assert_eq!(vec!["mascot", "rust"], ferris.groups);
+    assert_eq!("Ferris", ferris.name);
+    assert_eq!(Some("Internet"), ferris.location);
+    assert_eq!(vec!["mascot", "rust"], ferris.groups);
+}
 ```
 
 A merge strategy is a function with the signature
@@ -80,12 +82,12 @@ see the `args.rs` example.
 This crate has the following features:
 
 - `derive` (default): Enables the derive macro for the `Merge` trait using the
-  `merge_derive` crate.
+  `conflate_derive` crate.
 - `num` (default): Enables the merge strategies in the `num` module that require
   the `num_traits` crate.
 - `std` (default): Enables the merge strategies in the `hashmap` and `vec`
-  modules that require the standard library. If this feature is not set, `merge`
-  is a `no_std` library.
+  modules that require the standard library. If this feature is not set,
+  `conflate` is a `no_std` library.
 
 ## Minimum Rust version policy
 
@@ -107,11 +109,13 @@ licenses. The documentation and configuration files contained in this repository
 are licensed under the [Creative Commons Zero][CC0] license. You can find a copy
 of the license texts in the `LICENSES` directory.
 
-`merge-rs` complies with [version 3.0 of the REUSE specification][reuse].
+`conflate` complies with [version 3.0 of the REUSE specification][reuse].
 
-[~ireas/public-inbox@lists.sr.ht]: mailto:~ireas/public-inbox@lists.sr.ht
-[`git send-email`]: https://git-send-email.io
-[archive]: https://lists.sr.ht/~ireas/public-inbox
+## Credits
+
+This project is based on the awesome [merge](https://crates.io/crates/merge)
+crate by Robin Krahl.
+
 [Apache-2.0]: https://opensource.org/licenses/Apache-2.0
 [MIT]: https://opensource.org/licenses/MIT
 [CC0]: https://creativecommons.org/publicdomain/zero/1.0/

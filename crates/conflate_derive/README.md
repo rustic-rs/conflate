@@ -3,10 +3,10 @@ Copyright (C) 2020 Robin Krahl <robin.krahl@ireas.org>
 SPDX-License-Identifier: CC0-1.0
 -->
 
-# merge-derive
+# conflate-derive
 
-This crate provides a derive macro for the `merge::Merge` crate. See the
-[`merge`][`merge`] crate for more information.
+This crate provides a derive macro for the `conflate::Merge` crate. See the
+[`conflate`][`conflate`] crate for more information.
 
 ## Contact
 
@@ -16,7 +16,7 @@ the [FAQ](https://rustic.cli.rs/docs/FAQ.html).
 
 | Contact       | Where?                                                                                                          |
 | ------------- | --------------------------------------------------------------------------------------------------------------- |
-| Issue Tracker | [GitHub Issues](https://github.com/rustic-rs/merge/issues/choose)                                               |
+| Issue Tracker | [GitHub Issues](https://github.com/rustic-rs/conflate/issues/choose)                                            |
 | Discord       | [![Discord](https://dcbadge.vercel.app/api/server/WRUWENZnzQ?style=flat-square)](https://discord.gg/WRUWENZnzQ) |
 | Discussions   | [GitHub Discussions](https://github.com/rustic-rs/rustic/discussions)                                           |
 
@@ -33,4 +33,23 @@ version of Rust.
 In general, this crate will be conservative with respect to the minimum
 supported version of Rust.
 
-[`merge`]: https://lib.rs/crates/merge
+[`conflate`]: https://crates.io/crates/conflate
+
+## License
+
+This project is dual-licensed under the [Apache-2.0][Apache-2.0] and [MIT][MIT]
+licenses. The documentation and configuration files contained in this repository
+are licensed under the [Creative Commons Zero][CC0] license. You can find a copy
+of the license texts in the `LICENSES` directory.
+
+`conflate` complies with [version 3.0 of the REUSE specification][reuse].
+
+## Credits
+
+This project is based on the awesome [merge](https://crates.io/crates/merge)
+crate by Robin Krahl.
+
+[Apache-2.0]: https://opensource.org/licenses/Apache-2.0
+[MIT]: https://opensource.org/licenses/MIT
+[CC0]: https://creativecommons.org/publicdomain/zero/1.0/
+[reuse]: https://reuse.software/practices/3.0/

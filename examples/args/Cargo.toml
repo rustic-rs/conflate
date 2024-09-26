@@ -1,0 +1,18 @@
+[package]
+name = "args"
+version = "0.1.0"
+edition = "2021"
+publish = false
+rust-version.workspace = true
+
+[dependencies]
+conflate = { workspace = true }
+conflate_derive = { workspace = true }
+envy = "0.4"
+serde = "1.0"
+serde_derive = "1.0"
+structopt = "0.3"
+toml = "0.8"
+
+[lints]
+workspace = true

@@ -1,0 +1,26 @@
+# SPDX-FileCopyrightText: 2020 Robin Krahl <robin.krahl@ireas.org>
+# SPDX-License-Identifier: CC0-1.0
+
+[package]
+name = "conflate_derive"
+version = "0.2.0"
+authors = ["the rustic-rs team", "Robin Krahl <robin.krahl@ireas.org>"]
+categories = ["rust-patterns"]
+documentation = "https://docs.rs/conflate_derive"
+edition = "2021"
+homepage = "https://github.com/rustic-rs/conflate"
+keywords = ["merge", "macros", "derive", "conflate"]
+license = "Apache-2.0 OR MIT"
+readme = "README.md"
+repository = "https://github.com/rustic-rs/conflate/tree/main/crates/conflate_derive"
+rust-version = { workspace = true }
+description = "Derive macro for the conflate::Merge trait"
+
+[lib]
+proc-macro = true
+
+[dependencies]
+proc-macro-error2 = "2.0"
+proc-macro2 = "1.0"
+quote = "1.0"
+syn = "2.0"

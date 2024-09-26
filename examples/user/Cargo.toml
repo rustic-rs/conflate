@@ -1,0 +1,13 @@
+[package]
+name = "user"
+version = "0.1.0"
+edition = "2021"
+publish = false
+rust-version.workspace = true
+
+[dependencies]
+conflate = { workspace = true }
+conflate_derive = { workspace = true }
+
+[lints]
+workspace = true

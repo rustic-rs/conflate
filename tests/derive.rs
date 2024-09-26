@@ -3,7 +3,7 @@
 
 #![cfg(feature = "derive")]
 
-use merge::Merge;
+use conflate::Merge;
 
 fn test<T: std::fmt::Debug + Merge + PartialEq>(expected: T, mut left: T, right: T) {
     left.merge(right);
@@ -14,7 +14,7 @@ fn test<T: std::fmt::Debug + Merge + PartialEq>(expected: T, mut left: T, right:
 fn test_one_option_field() {
     #[derive(Debug, Merge, PartialEq)]
     struct S {
-        #[merge(strategy = merge::option::overwrite_none)]
+        #[merge(strategy = conflate::option::overwrite_none)]
         field1: Option<usize>,
     }
 
@@ -34,9 +34,9 @@ fn test_one_option_field() {
 fn test_two_option_fields() {
     #[derive(Debug, Merge, PartialEq)]
     struct S {
-        #[merge(strategy = merge::option::overwrite_none)]
+        #[merge(strategy = conflate::option::overwrite_none)]
         field1: Option<usize>,
-        #[merge(strategy = merge::option::overwrite_none)]
+        #[merge(strategy = conflate::option::overwrite_none)]
         field2: Option<usize>,
     }
 
@@ -139,7 +139,7 @@ fn test_two_option_fields() {
 fn test_skip_valid() {
     #[derive(Debug, Merge, PartialEq)]
     struct S {
-        #[merge(strategy = merge::option::overwrite_none)]
+        #[merge(strategy = conflate::option::overwrite_none)]
         field1: Option<usize>,
         #[merge(skip)]
         field2: Option<usize>,
@@ -244,7 +244,7 @@ fn test_skip_valid() {
 fn test_skip_invalid() {
     #[derive(Debug, Merge, PartialEq)]
     struct S {
-        #[merge(strategy = merge::option::overwrite_none)]
+        #[merge(strategy = conflate::option::overwrite_none)]
         field1: Option<usize>,
         #[merge(skip)]
         field2: usize,
@@ -348,8 +348,8 @@ fn test_strategy_vec_append() {
 fn test_unnamed_fields() {
     #[derive(Debug, Merge, PartialEq)]
     struct S(
-        #[merge(strategy = merge::option::overwrite_none)] Option<usize>,
-        #[merge(strategy = merge::option::overwrite_none)] Option<usize>,
+        #[merge(strategy = conflate::option::overwrite_none)] Option<usize>,
+        #[merge(strategy = conflate::option::overwrite_none)] Option<usize>,
     );
 
     impl S {
@@ -451,7 +451,7 @@ fn test_unnamed_fields() {
 fn test_unnamed_fields_skip() {
     #[derive(Debug, Merge, PartialEq)]
     struct S(
-        #[merge(strategy = merge::option::overwrite_none)] Option<usize>,
+        #[merge(strategy = conflate::option::overwrite_none)] Option<usize>,
         #[merge(skip)] Option<usize>,
     );
 
@@ -553,14 +553,14 @@ fn test_unnamed_fields_skip() {
 #[test]
 fn test_default_strategy() {
     #[derive(Debug, Merge, PartialEq)]
-    struct N(#[merge(strategy = merge::num::saturating_add)] u8);
+    struct N(#[merge(strategy = conflate::num::saturating_add)] u8);
 
     #[derive(Debug, Merge, PartialEq)]
-    #[merge(strategy = merge::option::overwrite_none)]
+    #[merge(strategy = conflate::option::overwrite_none)]
     struct S(
         Option<usize>,
         Option<usize>,
-        #[merge(strategy = merge::num::saturating_add)] u8,
+        #[merge(strategy = conflate::num::saturating_add)] u8,
         #[merge(strategy = Merge::merge)] N,
     );
 }

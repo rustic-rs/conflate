@@ -64,7 +64,7 @@ jobs:
           toolchain: ${{ matrix.rust }}
           target: ${{ matrix.job.target }}
           use-cross: ${{ matrix.job.use-cross }}
-          project-cache-key: "merge"
+          project-cache-key: "conflate"
 
   result:
     # Only run if the commit doesn't come from a merged PR, we assume CI is running in the PR as well

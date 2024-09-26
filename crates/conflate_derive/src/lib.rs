@@ -1,12 +1,12 @@
 // SPDX-FileCopyrightText: 2020 Robin Krahl <robin.krahl@ireas.org>
 // SPDX-License-Identifier: Apache-2.0 or MIT
 
-//! A derive macro for the [`merge::Merge`][] trait.
+//! A derive macro for the [`conflate::Merge`][] trait.
 //!
-//! See the documentation for the [`merge`][] crate for more information.
+//! See the documentation for the [`conflate`][] crate for more information.
 //!
-//! [`merge`]: https://lib.rs/crates/merge
-//! [`merge::Merge`]: https://docs.rs/merge/latest/merge/trait.Merge.html
+//! [`conflate`]: https://lib.rs/crates/conflate
+//! [`conflate::Merge`]: https://docs.rs/conflate/latest/conflate/trait.Merge.html
 
 extern crate proc_macro;
 
@@ -44,7 +44,7 @@ fn impl_merge(ast: &syn::DeriveInput) -> TokenStream {
     let default_strategy = FieldAttrs::from(ast.attrs.iter());
 
     set_dummy(quote! {
-        impl ::merge::Merge for #name {
+        impl ::conflate::Merge for #name {
             fn merge(&mut self, other: Self) {
                 unimplemented!()
             }
@@ -54,7 +54,7 @@ fn impl_merge(ast: &syn::DeriveInput) -> TokenStream {
     if let syn::Data::Struct(syn::DataStruct { ref fields, .. }) = ast.data {
         impl_merge_for_struct(name, fields, default_strategy)
     } else {
-        abort_call_site!("merge::Merge can only be derived for structs")
+        abort_call_site!("conflate::Merge can only be derived for structs")
     }
 }
 
@@ -66,7 +66,7 @@ fn impl_merge_for_struct(
     let assignments = gen_assignments(fields, default_strategy);
 
     quote! {
-        impl ::merge::Merge for #name {
+        impl ::conflate::Merge for #name {
             fn merge(&mut self, other: Self) {
                 #assignments
             }
@@ -93,7 +93,7 @@ fn gen_assignment(field: &Field, default_strategy: &FieldAttrs) -> TokenStream {
     } else if let Some(default) = &default_strategy.strategy {
         quote_spanned!(default.span()=> #default(&mut self.#name, other.#name);)
     } else {
-        quote_spanned!(field.span=> ::merge::Merge::merge(&mut self.#name, other.#name);)
+        quote_spanned!(field.span=> ::conflate::Merge::merge(&mut self.#name, other.#name);)
     }
 }
 

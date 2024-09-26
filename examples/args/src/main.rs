@@ -1,21 +1,27 @@
 // SPDX-FileCopyrightText: 2020 Robin Krahl <robin.krahl@ireas.org>
 // SPDX-License-Identifier: CC0-1.0
 
-use merge::Merge;
-use serde::Deserialize;
+//! This example demonstrates how to merge configuration from different sources using the `conflate`
+//! crate.  The example defines a struct `Args` with three fields: `debug`, `input` and `output`.  The
+//! `debug` field is overwritten if it is `false`, the `input` and `output` fields are overwritten if they
+//! are `None`.  The example then merges a default configuration into a user configuration and asserts that
+//! the merged configuration is correct.
+
+use conflate::Merge;
+use serde_derive::Deserialize;
 use structopt::StructOpt;
 
 #[derive(Debug, Default, Deserialize, Merge, StructOpt)]
 #[serde(default)]
 struct Args {
     #[structopt(short, long)]
-    #[merge(strategy = merge::bool::overwrite_false)]
+    #[merge(strategy = conflate::bool::overwrite_false)]
     debug: bool,
 
-    #[merge(strategy = merge::option::overwrite_none)]
+    #[merge(strategy = conflate::option::overwrite_none)]
     input: Option<String>,
 
-    #[merge(strategy = merge::option::overwrite_none)]
+    #[merge(strategy = conflate::option::overwrite_none)]
     output: Option<String>,
 }
 
