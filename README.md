@@ -2,8 +2,14 @@
 Copyright (C) 2020 Robin Krahl <robin.krahl@ireas.org>
 SPDX-License-Identifier: CC0-1.0
 -->
-
 # conflate
+
+<p align="center">
+<a href="https://crates.io/crates/conflate"><img src="https://img.shields.io/crates/v/conflate.svg" /></a>
+<a href="https://docs.rs/conflate/"><img src="https://img.shields.io/docsrs/conflate?style=flat&amp;labelColor=1c1d42&amp;color=4f396a&amp;logo=Rust&amp;logoColor=white" /></a>
+<a href="https://github.com/rustic-rs/conflate/blob/main/"><img src="https://img.shields.io/badge/license-Apache2.0/MIT-blue.svg" /></a>
+<a href="https://crates.io/crates/conflate"><img src="https://img.shields.io/crates/d/conflate.svg" /></a>
+<p>
 
 The `conflate` crate provides the `Merge` trait that can be used to merge
 multiple values into one.

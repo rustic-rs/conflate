@@ -5,6 +5,13 @@ SPDX-License-Identifier: CC0-1.0
 
 # conflate-derive
 
+<p align="center">
+<a href="https://crates.io/crates/conflate_derive"><img src="https://img.shields.io/crates/v/conflate_derive.svg" /></a>
+<a href="https://docs.rs/conflate_derive/"><img src="https://img.shields.io/docsrs/conflate_derive?style=flat&amp;labelColor=1c1d42&amp;color=4f396a&amp;logo=Rust&amp;logoColor=white" /></a>
+<a href="https://github.com/rustic-rs/conflate/"><img src="https://img.shields.io/badge/license-Apache2.0/MIT-blue.svg" /></a>
+<a href="https://crates.io/crates/conflate_derive"><img src="https://img.shields.io/crates/d/conflate_derive.svg" /></a>
+<p>
+
 This crate provides a derive macro for the `conflate::Merge` crate. See the
 [`conflate`][`conflate`] crate for more information.
 
