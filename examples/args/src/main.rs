@@ -7,14 +7,14 @@
 //! are `None`.  The example then merges a default configuration into a user configuration and asserts that
 //! the merged configuration is correct.
 
+use clap::Parser;
 use conflate::Merge;
 use serde_derive::Deserialize;
-use structopt::StructOpt;
 
-#[derive(Debug, Default, Deserialize, Merge, StructOpt)]
+#[derive(Debug, Default, Deserialize, Merge, Parser)]
 #[serde(default)]
 struct Args {
-    #[structopt(short, long)]
+    #[arg(short, long)]
     #[merge(strategy = conflate::bool::overwrite_false)]
     debug: bool,
 
@@ -42,7 +42,7 @@ fn get_env() -> Args {
 }
 
 fn main() {
-    let mut args = Args::from_args();
+    let mut args = Args::parse();
     args.merge(get_env());
     if let Some(config) = get_config() {
         args.merge(config);
