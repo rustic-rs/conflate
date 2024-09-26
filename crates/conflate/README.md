@@ -70,7 +70,7 @@ fn main() {
 
 A merge strategy is a function with the signature
 `fn merge<T>(left: &mut T, right: T)` that merges `right` into `left`. The
-`merge` crate provides strategies for the most common types, but you can also
+`conflate` crate provides strategies for the most common types, but you can also
 define your own strategies.
 
 The trait can be used to merge configuration from different sources, for example
