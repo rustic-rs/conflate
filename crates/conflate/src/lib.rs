@@ -80,6 +80,7 @@ pub use conflate_derive::*;
 pub mod bool;
 #[cfg(feature = "std")]
 pub mod hashmap;
+pub mod iter;
 #[cfg(feature = "num")]
 pub mod num;
 pub mod option;
