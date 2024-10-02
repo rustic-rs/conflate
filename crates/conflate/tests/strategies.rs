@@ -170,7 +170,7 @@ mod hashmap {
     }
 
     #[test]
-    fn test_overwrite() {
+    fn test_append_or_overwrite() {
         #[derive(Debug, Merge, PartialEq)]
         struct S(#[merge(strategy = conflate::hashmap::append_or_overwrite)] HashMap<u8, u8>);
 
@@ -180,7 +180,7 @@ mod hashmap {
     }
 
     #[test]
-    fn test_ignore() {
+    fn test_append_or_ignore() {
         #[derive(Debug, Merge, PartialEq)]
         struct S(#[merge(strategy = conflate::hashmap::append_or_ignore)] HashMap<u8, u8>);
 
@@ -190,7 +190,7 @@ mod hashmap {
     }
 
     #[test]
-    fn test_recurse() {
+    fn test_append_or_recurse() {
         #[derive(Debug, Merge, PartialEq)]
         struct N(#[merge(strategy = conflate::num::saturating_add)] u8);
 
