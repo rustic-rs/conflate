@@ -8,24 +8,27 @@
 use std::collections::BTreeMap;
 use std::hash::Hash;
 
-/// On conflict, overwrite elements of `left` with `right`.
+/// Append values, on conflict, overwrite elements of `left` with `right`.
 ///
 /// In other words, this gives precedence to `right`.
-pub fn overwrite<K: Eq + Hash + Ord, V>(left: &mut BTreeMap<K, V>, right: BTreeMap<K, V>) {
+pub fn append_or_overwrite<K: Eq + Hash + Ord, V>(
+    left: &mut BTreeMap<K, V>,
+    right: BTreeMap<K, V>,
+) {
     left.extend(right)
 }
 
-/// On conflict, ignore elements from `right`.
+/// Append values, on conflict, ignore elements from `right`.
 ///
 /// In other words, this gives precedence to `left`.
-pub fn ignore<K: Eq + Hash + Ord, V>(left: &mut BTreeMap<K, V>, right: BTreeMap<K, V>) {
+pub fn append_or_ignore<K: Eq + Hash + Ord, V>(left: &mut BTreeMap<K, V>, right: BTreeMap<K, V>) {
     for (k, v) in right {
         left.entry(k).or_insert(v);
     }
 }
 
-/// On conflict, recursively merge the elements.
-pub fn recurse<K: Eq + Hash + Ord, V: crate::Merge>(
+/// Append values, on conflict, recursively merge the elements.
+pub fn append_or_recurse<K: Eq + Hash + Ord, V: crate::Merge>(
     left: &mut BTreeMap<K, V>,
     right: BTreeMap<K, V>,
 ) {

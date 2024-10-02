@@ -242,7 +242,7 @@ mod btreemap {
     #[test]
     fn test_overwrite() {
         #[derive(Debug, Merge, PartialEq)]
-        struct S(#[merge(strategy = conflate::btreemap::overwrite)] BTreeMap<u8, u8>);
+        struct S(#[merge(strategy = conflate::btreemap::append_or_overwrite)] BTreeMap<u8, u8>);
 
         test(
             S(btreemap! {1 => 2}),
@@ -264,7 +264,7 @@ mod btreemap {
     #[test]
     fn test_ignore() {
         #[derive(Debug, Merge, PartialEq)]
-        struct S(#[merge(strategy = conflate::btreemap::ignore)] BTreeMap<u8, u8>);
+        struct S(#[merge(strategy = conflate::btreemap::append_or_ignore)] BTreeMap<u8, u8>);
 
         test(
             S(btreemap! {1 => 1}),
@@ -289,7 +289,7 @@ mod btreemap {
         struct N(#[merge(strategy = conflate::num::saturating_add)] u8);
 
         #[derive(Debug, Merge, PartialEq)]
-        struct S(#[merge(strategy = conflate::btreemap::recurse)] BTreeMap<u8, N>);
+        struct S(#[merge(strategy = conflate::btreemap::append_or_recurse)] BTreeMap<u8, N>);
 
         test(
             S(btreemap! {1 => N(3)}),
