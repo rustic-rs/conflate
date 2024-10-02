@@ -15,10 +15,6 @@ defaults:
     shell: bash
 
 on:
-  push:
-    # Runs when a commit is pushed to the main branch
-    branches:
-      - main
   merge_group:
     # Runs in a merge group
     types: [checks_requested]
