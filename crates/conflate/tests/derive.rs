@@ -300,7 +300,7 @@ fn test_strategy_usize_add() {
     }
 
     fn add(left: &mut usize, right: usize) {
-        *left = *left + right;
+        *left += right;
     }
 
     test(S::new(0), S::new(0), S::new(0));
