@@ -73,6 +73,11 @@ jobs:
         id: run_tests
         env:
           INSTA_UPDATE: new
+      
+      - name: Run Cargo Test (Compile Fail)
+        run: cargo +${{ matrix.rust }} test --all-targets --all-features -- --ignored
+        id: run_compile_tests
+      
       - name: Upload snapshots of failed tests
         if: ${{ failure() && steps.run_tests.outcome == 'failure' }}
         uses: actions/upload-artifact@50769540e7f4bd5e21e526ee35c689e35e0d6874 # v4
