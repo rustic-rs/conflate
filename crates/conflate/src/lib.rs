@@ -79,6 +79,8 @@ pub use conflate_derive::*;
 
 pub mod bool;
 #[cfg(feature = "std")]
+pub mod btreemap;
+#[cfg(feature = "std")]
 pub mod hashmap;
 #[cfg(feature = "num")]
 pub mod num;

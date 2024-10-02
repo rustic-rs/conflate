@@ -1,0 +1,20 @@
+error[E0308]: mismatched types
+  --> tests/compile/derive-invalid-strategy.rs:8:24
+   |
+8  |       #[merge(strategy = my_custom_merge_strategy)]
+   |                          ^-----------------------
+   |                          |
+   |  ________________________arguments to this function are incorrect
+   | |
+9  | |     field1: u8,
+   | |__________^ expected `u8`, found `&mut u8`
+   |
+note: function defined here
+  --> tests/compile/derive-invalid-strategy.rs:12:4
+   |
+12 | fn my_custom_merge_strategy(left: u8, right: u8) -> u8 {
+   |    ^^^^^^^^^^^^^^^^^^^^^^^^ --------
+help: consider removing the borrow
+   |
+8  |     #[merge(strategy = my_custom_merge_strategy)]
+   |

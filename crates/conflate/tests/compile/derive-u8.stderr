@@ -1,0 +1,15 @@
+error[E0277]: the trait bound `Option<u8>: Merge` is not satisfied
+ --> tests/compile/derive-u8.rs:8:5
+  |
+8 |     field1: Option<u8>,
+  |     ^^^^^^ the trait `Merge` is not implemented for `Option<u8>`
+  |
+  = help: the trait `Merge` is implemented for `S`
+
+error[E0277]: the trait bound `u8: Merge` is not satisfied
+ --> tests/compile/derive-u8.rs:9:5
+  |
+9 |     field2: u8,
+  |     ^^^^^^ the trait `Merge` is not implemented for `u8`
+  |
+  = help: the trait `Merge` is implemented for `S`

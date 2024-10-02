@@ -1,0 +1,23 @@
+error[E0308]: arguments to this function are incorrect
+  --> tests/compile/derive-invalid-default-strategy.rs:7:20
+   |
+7  |   #[merge(strategy = my_custom_merge_strategy)]
+   |  ____________________-^^^^^^^^^^^^^^^^^^^^^^^
+8  | | struct S {
+9  | |     field1: u16,
+   | |          -
+   | |          |
+   | |__________expected `&mut u8`, found `&mut u16`
+   |            expected `u8`, found `u16`
+   |
+   = note: expected mutable reference `&mut u8`
+              found mutable reference `&mut u16`
+note: function defined here
+  --> tests/compile/derive-invalid-default-strategy.rs:12:4
+   |
+12 | fn my_custom_merge_strategy(left: &mut u8, right: u8) {
+   |    ^^^^^^^^^^^^^^^^^^^^^^^^ -------------  ---------
+help: you can convert a `u16` to a `u8` and panic if the converted value doesn't fit
+   |
+9  |     field1.try_into().unwrap(): u16,
+   |           ++++++++++++++++++++

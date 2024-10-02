@@ -551,6 +551,7 @@ fn test_unnamed_fields_skip() {
 }
 
 #[test]
+#[allow(dead_code)]
 fn test_default_strategy() {
     #[derive(Debug, Merge, PartialEq)]
     struct N(#[merge(strategy = conflate::num::saturating_add)] u8);
