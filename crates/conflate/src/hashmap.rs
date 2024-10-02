@@ -8,24 +8,27 @@
 use std::collections::HashMap;
 use std::hash::Hash;
 
-/// On conflict, overwrite elements of `left` with `right`.
+/// Append values, on conflict, overwrite elements of `left` with `right`.
 ///
 /// In other words, this gives precedence to `right`.
-pub fn overwrite<K: Eq + Hash, V>(left: &mut HashMap<K, V>, right: HashMap<K, V>) {
+pub fn append_or_overwrite<K: Eq + Hash, V>(left: &mut HashMap<K, V>, right: HashMap<K, V>) {
     left.extend(right)
 }
 
-/// On conflict, ignore elements from `right`.
+/// Append values, on conflict, ignore elements from `right`.
 ///
 /// In other words, this gives precedence to `left`.
-pub fn ignore<K: Eq + Hash, V>(left: &mut HashMap<K, V>, right: HashMap<K, V>) {
+pub fn append_or_ignore<K: Eq + Hash, V>(left: &mut HashMap<K, V>, right: HashMap<K, V>) {
     for (k, v) in right {
         left.entry(k).or_insert(v);
     }
 }
 
-/// On conflict, recursively merge the elements.
-pub fn recurse<K: Eq + Hash, V: crate::Merge>(left: &mut HashMap<K, V>, right: HashMap<K, V>) {
+/// Append values, on conflict, recursively merge the elements.
+pub fn append_or_recurse<K: Eq + Hash, V: crate::Merge>(
+    left: &mut HashMap<K, V>,
+    right: HashMap<K, V>,
+) {
     use std::collections::hash_map::Entry;
 
     for (k, v) in right {
