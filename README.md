@@ -92,8 +92,8 @@ This crate has the following features:
   `conflate_derive` crate.
 - `num` (default): Enables the merge strategies in the `num` module that require
   the `num_traits` crate.
-- `std` (default): Enables the merge strategies in the `hashmap` and `vec`
-  modules that require the standard library. If this feature is not set,
+- `std` (default): Enables the merge strategies in the `hashmap`, `btreemap` and
+  `vec` modules that require the standard library. If this feature is not set,
   `conflate` is a `no_std` library.
 
 ## Minimum Rust version policy
