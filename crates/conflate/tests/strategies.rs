@@ -214,3 +214,97 @@ mod hashmap {
         );
     }
 }
+
+#[cfg(feature = "std")]
+mod btreemap {
+    use super::test;
+    use crate::Merge;
+    use std::collections::BTreeMap;
+
+    /// A macro to create a BTreeMap.
+    ///
+    /// Example:
+    ///
+    /// ```
+    /// let letters = btreemap!{"a" => "b", "c" => "d"};
+    /// ```
+    ///
+    /// Trailing commas are allowed.
+    /// Commas between elements are required (even if the expression is a block).
+    macro_rules! btreemap {
+        ($( $key: expr => $val: expr ),* $(,)*) => {{
+            let mut btreemap = BTreeMap::default();
+            $( btreemap.insert($key, $val); )*
+            btreemap
+        }}
+    }
+
+    #[test]
+    fn test_append_or_overwrite() {
+        #[derive(Debug, Merge, PartialEq)]
+        struct S(#[merge(strategy = conflate::btreemap::append_or_overwrite)] BTreeMap<u8, u8>);
+
+        test(
+            S(btreemap! {1 => 2}),
+            S(btreemap! {1 => 1}),
+            S(btreemap! {1 => 2}),
+        );
+        test(
+            S(btreemap! {1 => 1}),
+            S(btreemap! {1 => 2}),
+            S(btreemap! {1 => 1}),
+        );
+        test(
+            S(btreemap! {0 => 1, 1 => 2}),
+            S(btreemap! {0 => 1}),
+            S(btreemap! {1 => 2}),
+        );
+    }
+
+    #[test]
+    fn test_append_or_ignore() {
+        #[derive(Debug, Merge, PartialEq)]
+        struct S(#[merge(strategy = conflate::btreemap::append_or_ignore)] BTreeMap<u8, u8>);
+
+        test(
+            S(btreemap! {1 => 1}),
+            S(btreemap! {1 => 1}),
+            S(btreemap! {1 => 2}),
+        );
+        test(
+            S(btreemap! {1 => 2}),
+            S(btreemap! {1 => 2}),
+            S(btreemap! {1 => 1}),
+        );
+        test(
+            S(btreemap! {0 => 1, 1 => 2}),
+            S(btreemap! {0 => 1}),
+            S(btreemap! {1 => 2}),
+        );
+    }
+
+    #[test]
+    fn test_append_or_recurse() {
+        #[derive(Debug, Merge, PartialEq)]
+        struct N(#[merge(strategy = conflate::num::saturating_add)] u8);
+
+        #[derive(Debug, Merge, PartialEq)]
+        struct S(#[merge(strategy = conflate::btreemap::append_or_recurse)] BTreeMap<u8, N>);
+
+        test(
+            S(btreemap! {1 => N(3)}),
+            S(btreemap! {1 => N(1)}),
+            S(btreemap! {1 => N(2)}),
+        );
+        test(
+            S(btreemap! {1 => N(3)}),
+            S(btreemap! {1 => N(2)}),
+            S(btreemap! {1 => N(1)}),
+        );
+        test(
+            S(btreemap! {0 => N(1), 1 => N(2)}),
+            S(btreemap! {0 => N(1)}),
+            S(btreemap! {1 => N(2)}),
+        );
+    }
+}
