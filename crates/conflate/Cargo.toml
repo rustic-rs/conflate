@@ -3,7 +3,7 @@
 
 [package]
 name = "conflate"
-version = "0.2.0"
+version = "0.3.0"
 authors = ["the rustic-rs team", "Robin Krahl <robin.krahl@ireas.org>"]
 categories = ["rust-patterns"]
 documentation = "https://docs.rs/conflate"
