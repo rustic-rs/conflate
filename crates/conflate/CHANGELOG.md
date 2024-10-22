@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.1](https://github.com/rustic-rs/conflate/compare/conflate-v0.3.0...conflate-v0.3.1) - 2024-10-22
+
+### Other
+
+- *(deps)* update actions ([#26](https://github.com/rustic-rs/conflate/pull/26))
+- add btreemap to std feature description ([#20](https://github.com/rustic-rs/conflate/pull/20))
+
 ## [0.3.0](https://github.com/rustic-rs/conflate/compare/conflate-v0.2.0...conflate-v0.3.0) - 2024-10-03
 
 ### Added
