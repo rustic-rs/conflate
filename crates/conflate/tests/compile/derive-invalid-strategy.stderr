@@ -14,7 +14,3 @@ note: function defined here
    |
 12 | fn my_custom_merge_strategy(left: u8, right: u8) -> u8 {
    |    ^^^^^^^^^^^^^^^^^^^^^^^^ --------
-help: consider removing the borrow
-   |
-8  |     #[merge(strategy = my_custom_merge_strategy)]
-   |
