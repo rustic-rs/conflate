@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.2](https://github.com/rustic-rs/conflate/compare/conflate-v0.3.1...conflate-v0.3.2) - 2024-11-19
+
+### Added
+
+- add `option::overwrite_with_some` to option strategies ([#32](https://github.com/rustic-rs/conflate/pull/32))
+
 ## [0.3.1](https://github.com/rustic-rs/conflate/compare/conflate-v0.3.0...conflate-v0.3.1) - 2024-10-22
 
 ### Other
