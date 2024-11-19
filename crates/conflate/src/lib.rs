@@ -128,11 +128,13 @@ pub mod vec;
 ///     s: "some ignored value".to_owned(),
 ///     flag: false,
 /// };
+///
 /// val.merge(S {
 ///     option: Some(42),
 ///     s: "some other ignored value".to_owned(),
 ///     flag: true,
 /// });
+///
 /// assert_eq!(S {
 ///     option: Some(42),
 ///     s: "some ignored value".to_owned(),
@@ -158,11 +160,13 @@ pub mod vec;
 ///     option2: Some(1),
 ///     option3: None,
 /// };
+///
 /// val.merge(S {
 ///     option1: Some(2),
 ///     option2: Some(2),
 ///     option3: None,
 /// });
+///
 /// assert_eq!(S {
 ///     option1: Some(2),
 ///     option2: Some(1),
@@ -173,3 +177,123 @@ pub trait Merge {
     /// Merge another object into this object.
     fn merge(&mut self, other: Self);
 }
+
+/// A trait for objects that can be merged from another object
+/// of the same type creating a new object.
+///
+/// Using a builder like pattern to merge two objects
+/// with the `option::overwrite_none` strategy.
+///
+/// ```
+/// use conflate::{Merge, MergeFrom};
+///
+/// #[derive(Debug, PartialEq, Merge)]
+/// #[merge(strategy = conflate::option::overwrite_none)]
+/// struct S {
+///     option1: Option<usize>,
+///     option2: Option<usize>,
+///     option3: Option<usize>,
+///     option4: Option<usize>,
+/// }
+///
+/// let cli = S {
+///     option1: None,
+///     option2: Some(1),
+///     option3: None,
+///     option4: None,
+/// };
+///
+/// let config = S {
+///     option1: Some(2),
+///     option2: Some(2),
+///     option3: None,
+///     option4: None,
+/// };
+///
+/// impl Default for S {
+///    fn default() -> Self {
+///       S {
+///         option1: None,
+///         option2: None,
+///         option3: Some(4),
+///         option4: None,
+///       }
+///    }
+/// }
+///
+/// let val = cli
+///           .merge_from(config)
+///           .merge_from(S::default());  
+///
+/// assert_eq!(S {
+///     option1: Some(2),
+///     option2: Some(1),
+///     option3: Some(4),
+///     option4: None,
+/// }, val);
+/// ```
+///
+/// Using a builder like pattern to merge two objects
+/// with the `option::overwrite_with_some` strategy.
+///
+/// ```
+/// use conflate::{Merge, MergeFrom};
+///
+/// #[derive(Debug, PartialEq, Merge)]
+/// #[merge(strategy = conflate::option::overwrite_with_some)]
+/// struct S {
+///     option1: Option<usize>,
+///     option2: Option<usize>,
+///     option3: Option<usize>,
+///     option4: Option<usize>,
+/// }
+///
+/// impl Default for S {
+///    fn default() -> Self {
+///       S {
+///         option1: None,
+///         option2: None,
+///         option3: Some(4),
+///         option4: None,
+///       }
+///    }
+/// }
+///
+/// let config = S {
+///     option1: Some(2),
+///     option2: Some(2),
+///     option3: None,
+///     option4: None,
+/// };
+///
+/// let cli = S {
+///     option1: None,
+///     option2: Some(1),
+///     option3: None,
+///     option4: None,
+/// };
+///
+/// let val = S::default()
+///           .merge_from(config)
+///           .merge_from(cli);  
+///
+/// assert_eq!(S {
+///     option1: Some(2),
+///     option2: Some(1),
+///     option3: Some(4),
+///     option4: None,
+/// }, val);
+/// ```
+pub trait MergeFrom: Merge {
+    /// Merge two objects into a new object.
+    fn merge_from(mut self, other: Self) -> Self
+    where
+        Self: Sized,
+    {
+        self.merge(other);
+        self
+    }
+}
+
+// Blanket implementation for all types that implement `Merge`.
+impl<T: Merge> MergeFrom for T {}
