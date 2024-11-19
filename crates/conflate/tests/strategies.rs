@@ -2,12 +2,21 @@
 // SPDX-License-Identifier: Apache-2.0 or MIT
 
 #![cfg(feature = "derive")]
-
 use conflate::Merge;
 
 fn test<T: std::fmt::Debug + Merge + PartialEq>(expected: T, mut left: T, right: T) {
     left.merge(right);
     assert_eq!(expected, left);
+}
+
+#[test]
+fn test_option_overwrite_some() {
+    #[derive(Debug, Merge, PartialEq)]
+    struct S(#[merge(strategy = conflate::option::overwrite_with_some)] Option<u8>);
+
+    test(S(Some(1)), S(Some(0)), S(Some(1)));
+    test(S(Some(1)), S(None), S(Some(1)));
+    test(S(None), S(None), S(None));
 }
 
 #[test]

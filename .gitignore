@@ -6,3 +6,6 @@
 **/*.rs.bk
 Cargo.lock
 *.swp
+
+# IDE
+.vscode
