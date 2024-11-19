@@ -234,13 +234,13 @@ pub trait Merge {
 /// ```
 ///
 /// Using a builder like pattern to merge two objects
-/// with the `option::overwrite_some` strategy.
+/// with the `option::overwrite_with_some` strategy.
 ///
 /// ```
 /// use conflate::{Merge, MergeFrom};
 ///
 /// #[derive(Debug, PartialEq, Merge)]
-/// #[merge(strategy = conflate::option::overwrite_some)]
+/// #[merge(strategy = conflate::option::overwrite_with_some)]
 /// struct S {
 ///     option1: Option<usize>,
 ///     option2: Option<usize>,
