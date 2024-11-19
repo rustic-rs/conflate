@@ -169,6 +169,7 @@ pub mod vec;
 ///     option3: None,
 /// }, val);
 /// ```
+
 pub trait Merge {
     /// Merge another object into this object.
     fn merge(&mut self, other: Self);
