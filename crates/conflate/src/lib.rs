@@ -285,7 +285,18 @@ pub trait Merge {
 /// }, val);
 /// ```
 pub trait MergeFrom: Merge {
-    /// Merge two objects into a new object.
+    /// Merges two instances of a type into a new instance.
+    ///
+    /// The method merges `self` with `other`.
+    ///
+    /// # Arguments
+    ///
+    /// * `self` - The instance to merge into.
+    /// * `other` - The instance to merge into `self`.
+    ///
+    /// # Returns
+    ///
+    /// A new instance that is the result of merging `self`, `other`.
     fn merge_from(mut self, other: Self) -> Self
     where
         Self: Sized,
@@ -297,3 +308,60 @@ pub trait MergeFrom: Merge {
 
 // Blanket implementation for all types that implement `Merge`.
 impl<T: Merge> MergeFrom for T {}
+
+/// A trait that defines a merge precedence strategy for merging multiple instances of a type.
+///
+/// This trait extends the `MergeFrom` trait and provides a method to merge three instances
+/// of a type, with the precedence order being `self`, `medium`, and `low`.
+///
+/// This trait is useful when merging configuration values from different sources with different
+/// precedence levels. For example, a configuration value can be defined in multiple places, such as
+/// command-line arguments, environment variables, and configuration files. The default implementation
+/// is to merge the first two values and then merge the result with the third value.
+///
+/// # Example
+///
+/// ```rust
+/// use conflate::{Merge, MergeFrom, MergePrecedence};
+///
+/// #[derive(Debug, PartialEq, Merge)]
+/// #[merge(strategy = conflate::option::overwrite_none)]
+/// struct MyConfig {
+///     a: Option<u8>,
+///     b: Option<u8>,
+///     c: Option<u8>,
+/// }
+///
+/// let cli = MyConfig { a: Some(1), b: None, c: None };
+/// let config = MyConfig { a: None, b: Some(2), c: None };
+/// let defaults = MyConfig { a: None, b: Some(1), c: Some(3) };
+///
+/// let merged = cli.merge_precedence(config, defaults);
+///
+/// assert_eq!(MyConfig { a: Some(1), b: Some(2), c: Some(3) }, merged);
+/// ```
+pub trait MergePrecedence: MergeFrom {
+    /// Merges three instances of a type, with the precedence order being `self`, `medium`, and `low`.
+    ///
+    /// The method first merges `self` with `medium`, and then merges the result with `low`.
+    ///
+    /// # Arguments
+    ///
+    /// * `self` - The instance with the highest precedence.
+    /// * `medium` - The instance with medium precedence.
+    /// * `low` - The instance with the lowest precedence.
+    ///
+    /// # Returns
+    ///
+    /// A new instance that is the result of merging `self`, `medium`, and `low` in the specified order.
+    fn merge_precedence(self, medium: Self, low: Self) -> Self
+    where
+        Self: Sized,
+    {
+        let merged = self.merge_from(medium);
+        merged.merge_from(low)
+    }
+}
+
+// Blanket implementation for all types that implement `Merge`.
+impl<T: MergeFrom> MergePrecedence for T {}
