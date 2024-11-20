@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.3](https://github.com/rustic-rs/conflate/compare/conflate-v0.3.2...conflate-v0.3.3) - 2024-11-20
+
+### Added
+
+- enhance MergeFrom trait with detailed documentation and add MergePrecedence trait for prioritized merging
+- add MergeFrom trait to conflate ([#34](https://github.com/rustic-rs/conflate/pull/34))
+
 ## [0.3.2](https://github.com/rustic-rs/conflate/compare/conflate-v0.3.1...conflate-v0.3.2) - 2024-11-19
 
 ### Added
